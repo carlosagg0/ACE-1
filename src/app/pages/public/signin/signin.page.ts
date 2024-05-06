@@ -91,7 +91,7 @@ export class SigninPage implements OnInit {
     
     else
     {
-      this.authService.showToast2(res.mensaje2);
+      this.authService.showToast(res.mensaje);
     }
   
     });

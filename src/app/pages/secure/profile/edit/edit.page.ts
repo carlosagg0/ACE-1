@@ -20,18 +20,23 @@ export class EditPage implements OnInit {
     private navController: NavController,
     private actionSheetController: ActionSheetController
   ) { }
+  
 
   ngOnInit() {
+    
+    
 
     // Setup form
     this.edit_profile_form = this.formBuilder.group({
-      name_first: ['', Validators.required],
+      nombre: ['', Validators.required],
       name_last: ['', Validators.required]
     });
 
     // DEBUG: Prefill inputs
-    this.edit_profile_form.get('name_first').setValue('John');
-    this.edit_profile_form.get('name_last').setValue('Doe');
+
+    this.edit_profile_form.get('nom_persona').setValue('');
+    this.edit_profile_form.get('ape_persona').setValue('');
+    
   }
 
   // Update profile picture

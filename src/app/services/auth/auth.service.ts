@@ -105,7 +105,7 @@ async showToast1(mensaje1:string){
     message: mensaje1,
     duration: 500,
     position: 'bottom', // Cambia 'top' a 'bottom' según tus necesidades
-    color: 'warning-tint' // Cambia el color según tus necesidades
+    color: 'warning' // Cambia el color según tus necesidades
   });
   toast2.present();
 }
