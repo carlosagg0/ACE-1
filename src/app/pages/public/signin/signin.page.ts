@@ -85,6 +85,8 @@ export class SigninPage implements OnInit {
     {
       this.authService.creatSession('cod_persona', res.persona[0].codigo);
       this.authService.creatSession('persona', res.persona[0].nombre+" "+res.persona[0].apellido);
+      this.authService.creatSession('cedula', res.persona[0].cedula);
+      this.authService.creatSession('correo', res.persona[0].correo);
       this.authService.showToast2('Bienvenido');
       this.router.navigate(['/home']);
     }

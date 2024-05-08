@@ -1,10 +1,10 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title color="light">
+    <ion-title color="primary">
       Home
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-button color="secondary" routerLink="/settings">
+      <ion-button color="primary" routerLink="/settings">
         <ion-icon slot="icon-only" name="cog"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -24,11 +24,11 @@
   <div class="ion-padding">
 
     <ion-list-header>
-      <ion-label color="tertiary">Card/List Sample</ion-label>
+      <ion-label color="primary">Card/List Sample</ion-label>
     </ion-list-header>
 
     <!-- Skeletons -->
-    <ion-list class="item-card-list animate__animated animate__fadeIn" *ngIf="!content_loaded">
+    <ion-list class="item-card-list animate_animated animate_fadeIn" *ngIf="!content_loaded">
       <ion-item lines="none" color="primary" *ngFor="let i of [].constructor(3);">
         <ion-avatar slot="start">
           <ion-skeleton-text animated></ion-skeleton-text>
@@ -40,7 +40,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list class="item-card-list animate__animated animate__fadeIn" *ngIf="content_loaded" lines="none">
+    <ion-list class="item-card-list animate_animated animate_fadeIn" *ngIf="content_loaded" lines="none">
       <ion-item color="primary" button detail>
         <ion-label color="medium">
           <h3>$12,123.99</h3>
@@ -66,14 +66,14 @@
     <hr>
 
     <ion-list-header>
-      <ion-label color="tertiary">Card/List Sample 2</ion-label>
+      <ion-label color="primary">Card/List Sample 2</ion-label>
       <ion-button color="medium" *ngIf="content_loaded">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
       </ion-button>
     </ion-list-header>
 
     <!-- Skeletons -->
-    <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="!content_loaded">
-      <ion-item color="primary" *ngFor="let i of [].constructor(3);">
+    <ion-list class="list-custom animate_animated animate_fadeIn" lines="full" *ngIf="!content_loaded">
+      <ion-item color="secondary" *ngFor="let i of [].constructor(3);">
         <ion-label color="medium">
           <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
           <p><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></p>
@@ -82,7 +82,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
+    <ion-list class="list-custom animate_animated animate_fadeIn" lines="full" *ngIf="content_loaded">
       <ion-item color="primary" button detail="false">
         <ion-avatar slot="start" class="ion-avatar-default-icon">
           <ion-icon color="tertiary" size="large" name="cafe-outline"></ion-icon>

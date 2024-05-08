@@ -37,7 +37,7 @@ body {
 }
 
 ion-content {
-  --background: linear-gradient(50deg, var(--ion-color-dark), var(--ion-color-danger));
+  --background: linear-gradient(50deg, var(--ion-color-dark), var(--ion-color-dark));
 }
 
 ion-list {
@@ -117,7 +117,7 @@ ion-searchbar.sc-ion-searchbar-ios-h {
 
 // HR
 hr {
-  background: var(--ion-color-primary);
+  background: var(--ion-color-danger);
   margin: 22px 0;
 
   &.hr-medium {
