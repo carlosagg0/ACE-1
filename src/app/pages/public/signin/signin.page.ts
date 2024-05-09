@@ -79,12 +79,14 @@ export class SigninPage implements OnInit {
     }
     this.authService.postData(datos).subscribe((res:any)=>{
       if (this.signin_form.value.cedula == '' || this.signin_form.value.clave == '') {
-        this.toastService.presentToast('Error', 'Please input email and password', 'top', 'danger', 2000);
+        this.toastService.presentToast('Error', 'Ingrese su cédula y contraseña', 'top', 'danger', 2000);
       }
     if(res.estado==true)
     {
-      this.authService.creatSession('cod_persona', res.persona[0].codigo);
+      this.authService.creatSession('codigo', res.persona[0].codigo);
       this.authService.creatSession('persona', res.persona[0].nombre+" "+res.persona[0].apellido);
+      this.authService.creatSession('nombre', res.persona[0].nombre);
+      this.authService.creatSession('apellido', res.persona[0].apellido);
       this.authService.creatSession('cedula', res.persona[0].cedula);
       this.authService.creatSession('correo', res.persona[0].correo);
       this.authService.showToast2('Bienvenido');

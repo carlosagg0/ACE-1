@@ -1,10 +1,10 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title color="primary">
+    <ion-title color="light">
       Home
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-button color="primary" routerLink="/settings">
+      <ion-button color="light" routerLink="/settings">
         <ion-icon slot="icon-only" name="cog"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -73,7 +73,7 @@
 
     <!-- Skeletons -->
     <ion-list class="list-custom animate_animated animate_fadeIn" lines="full" *ngIf="!content_loaded">
-      <ion-item color="secondary" *ngFor="let i of [].constructor(3);">
+      <ion-item color="primary" *ngFor="let i of [].constructor(3);">
         <ion-label color="medium">
           <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
           <p><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></p>

@@ -37,8 +37,11 @@ body {
 }
 
 ion-content {
-  --background: linear-gradient(50deg, var(--ion-color-dark), var(--ion-color-dark));
+  --background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),url('../src/assets/escudo.png') no-repeat center center;
+  background-color: white;
+
 }
+
 
 ion-list {
   border-radius: 8px;

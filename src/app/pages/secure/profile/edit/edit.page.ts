@@ -12,76 +12,109 @@ import { Router } from '@angular/router';
   templateUrl: './edit.page.html',
   styleUrls: ['./edit.page.scss'],
 })
+export class EditPage implements OnInit {
 
-  export class EditPage implements OnInit {
-
-    edit_profile_form: FormGroup;
+  edit_profile_form: FormGroup;
   submit_attempt: boolean = false;
 
-    nombre: string="";
-    correo: string="";
-  
-    constructor(
-      private authService: AuthService,
-      private loadingController: LoadingController,
-      
-      private formBuilder: FormBuilder,
-      private navController: NavController,
-      private toastService: ToastService,
-      private actionSheetController: ActionSheetController,
-      private router: Router) { 
+  txt_nombre:string="";
+  txt_apellido:string="";
+  txt_cedula:string="";
+  persona: string="";
+  correo: string="";
+  nombre: string="";
+  apellido: string="";
+  cedula: string="";
+
+
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private toastService: ToastService,
+    private navController: NavController,
+    private actionSheetController: ActionSheetController,
+    private router: Router) { 
         
       this.authService.getSession('persona').then((res:any)=>{
-        this.nombre=res;
+        this.persona=res;
         
         });
       this.authService.getSession('correo').then((res:any)=>{
           this.correo=res;
           
           });
-        
-        
-    }
+          this.authService.getSession('nombre').then((res:any)=>{
+            this.nombre=res;
+            
+            });
+            this.authService.getSession('apellido').then((res:any)=>{
+              this.apellido=res;
+              
+              });
+              this.authService.getSession('cedula').then((res:any)=>{
+                this.cedula=res;
+                
+                });
+        }
 
   ngOnInit() {
-    
-    
 
     // Setup form
     this.edit_profile_form = this.formBuilder.group({
       nombre: ['', Validators.required],
-      name_last: ['', Validators.required]
+      apellido: ['', Validators.required]
     });
 
-    // DEBUG: Prefill inputs
 
-    this.edit_profile_form.get('nom_persona').setValue('');
-    this.edit_profile_form.get('ape_persona').setValue('');
-    
   }
+
+  async actnombre()
+  {
+    let datos={
+      accion:"actnombre",
+      cedula:this.cedula,
+      nombre:this.txt_nombre,
+      apellido:this.txt_apellido,
+    }
+
+    this.authService.postData(datos).subscribe((res:any)=>{
+      
+    if(res.estado==true)
+    {
+      this.authService.showToast2(res.mensaje2);
+      this.router.navigate(['/home']);
+    }
+    
+    else
+    {
+      this.authService.showToast(res.mensaje);
+    }
+  
+    });
+}
 
   // Update profile picture
   async updateProfilePicture() {
 
     const actionSheet = await this.actionSheetController.create({
-      header: 'Choose existing picture or take new',
+      header: 'Elija una foto existente o tome una nueva',
       cssClass: 'custom-action-sheet',
       buttons: [
         {
-          text: 'Choose from gallery',
+          text: 'Elegir de la galería',
           icon: 'images',
           handler: () => {
             // Put in logic ...
           }
         },
         {
-          text: 'Take picture',
+          text: 'Tomar foto',
           icon: 'camera',
           handler: () => {
             // Put in logic ...
           }
         }, {
-          text: 'Cancel',
+          text: 'Cancelar',
           icon: 'close',
           role: 'cancel'
         }]
@@ -100,13 +133,13 @@ import { Router } from '@angular/router';
       // Save form ...
 
       // Display success message and go back
-      this.toastService.presentToast('Success', 'Profile saved', 'top', 'success', 2000);
+      this.toastService.presentToast('Guardado', 'Perfil guardado correctamente', 'top', 'success', 2000);
       this.navController.back();
 
     } else {
 
       // Display error message
-      this.toastService.presentToast('Error', 'Please fill in all required fields', 'top', 'danger', 2000);
+      this.toastService.presentToast('Error', 'Por favor, llene todos los campos', 'top', 'danger', 2000);
     }
   }
 
