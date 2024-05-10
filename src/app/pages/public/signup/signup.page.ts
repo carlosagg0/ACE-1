@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class SignupPage implements OnInit {
   txt_correo: string = "";
   txt_clave: string = "";
   txt_telefono: string = "";
+  sel_tipoced: string="";
 
   current_year: number = new Date().getFullYear();
 
@@ -32,11 +33,13 @@ export class SignupPage implements OnInit {
   ngOnInit() {
     // Setup form
     this.signup_form = this.formBuilder.group({
-      cedula: ['', Validators.compose([Validators.minLength(10), Validators.required])],
+      tipo_documento: ['', Validators.required], // Agregamos el campo de tipo de documento
+      cedula_extranjera: ['', Validators.compose([Validators.minLength(10), Validators.required])],
+      cedula: ['', Validators.compose([Validators.minLength(10), Validators.required, this.cedulaEcuatorianaValidator()])],
       nombres: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
       correo: ['', Validators.compose([Validators.email, Validators.required])],
-      telefono: ['', Validators.compose([Validators.minLength(10), Validators.required])],
+      telefono: ['', Validators.compose([Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.required])],
       clave: ['', Validators.compose([Validators.minLength(6), Validators.required])],
       conf_clave: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
@@ -47,22 +50,26 @@ export class SignupPage implements OnInit {
     let datos = {
       accion: "n_usuario",
       cedula: this.txt_cedula,
+      tipoced: this.sel_tipoced,
       nombre: this.txt_nombre,
       apellido: this.txt_apellido,
       telefono: this.txt_telefono,
       correo: this.txt_correo,
       clave: this.txt_clave,
     }
+    
 
     this.authService.postData(datos).subscribe((res: any) => {
       if (res.estado == true) {
         this.mostrarMensajeRegistroExitoso();
         this.router.navigate(['/signin']); // Redirecciona al inicio de sesión
       } else {
-        
         this.authService.showToast1(res.mensaje1);
       }
+      
     });
+    
+    
 
 
 
@@ -89,14 +96,34 @@ export class SignupPage implements OnInit {
   async mostrarMensajeRegistroExitoso() {
     const toast = await this.toastService.presentToast('Éxito', '¡Se ha registrado correctamente!', 'top', 'success', 3000);
   }
-  validateEmail(email: string): boolean {
+  validateEmail(correo: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(correo);
   }
-  validatePhoneNumber(phoneNumber: string): boolean {
+  validatePhoneNumber(telefono: string): boolean {
     const phoneRegex = /^[0-9]{10}$/; // Asumiendo que el número de teléfono tiene 10 dígitos
-    return phoneRegex.test(phoneNumber);
+    return phoneRegex.test(telefono);
+  }
+  cedulaEcuatorianaValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const cedula = control.value;
+      if (cedula.length === 10) {
+        const coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+        let suma = 0;
+        for (let i = 0; i < coeficientes.length; i++) {
+          let resultado = parseInt(cedula.charAt(i)) * coeficientes[i];
+          if (resultado > 9) {
+            resultado -= 9;
+          }
+          suma += resultado;
+        }
+        const digitoVerificador = (suma % 10 === 0) ? 0 : (10 - (suma % 10));
+        if (parseInt(cedula.charAt(9)) !== digitoVerificador) {
+          return { 'cedulaEcuatoriana': true };
+        }
+      }
+      return null;
+    };
   }
   
   }
-

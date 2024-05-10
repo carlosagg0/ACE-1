@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button color="secondary" text="Sign in" defaultHref="/signin"></ion-back-button>
+      <ion-back-button color="light" text="Inicio de sesion" defaultHref="/signin"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,57 +11,75 @@
   <div class="ion-padding ion-full-height ion-flex ion-flex-center">
 
     <div class="logo-container">
-      <h1 class="animate__animated animate__fadeInUp">
+      <h1 class="animate_animated animate_fadeInUp">
         <ion-text color="light">Registro</ion-text>
       </h1>
-      <p class="animate__animated animate__fadeInUp">
+      <p class="animate_animated animate_fadeInUp">
         <ion-text color="secondary">Cree su cuenta gratis</ion-text>
       </p>
     </div>
 
-
-
-
     <form class="form-default" [formGroup]="signup_form" (submit)="registrar()">
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
-          Cédula
-        </ion-label>
-        <ion-input required color="secondary" formControlName="cedula" type="text" [(ngModel)]="txt_cedula"></ion-input>
-        <div *ngIf="signup_form.get('cedula').errors && signup_form.get('cedula').dirty">
-          <p *ngIf="signup_form.get('cedula').hasError('required')">Este campo es requerido</p>
-        </div>
-      </ion-item>
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+     <ion-item color="dark" class="animate_animated animate_fadeInUp">
+  <ion-label position="floating">
+    <ion-icon name="card" item-start></ion-icon>
+    Tipo de Documento
+  </ion-label>
+  <ion-select formControlName="tipo_documento" placeholder="Seleccionar" [(ngModel)]="sel_tipoced">
+    <ion-select-option value="1">Cédula Ecuatoriana</ion-select-option>
+    <ion-select-option value="2">Cédula Extranjera</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item *ngIf="sel_tipoced === '1'" color="dark" class="animate_animated animate_fadeInUp">
+  <ion-label position="floating">
+    <ion-icon name="person" item-start></ion-icon>
+    Número de Cédula
+  </ion-label>
+  <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula"></ion-input>
+  <div *ngIf="signup_form.get('cedula').errors && signup_form.get('cedula').dirty">
+  </div>
+</ion-item>
+
+<ion-item *ngIf="sel_tipoced === '2'" color="dark" class="animate_animated animate_fadeInUp">
+  <ion-label position="floating">
+    <ion-icon name="person" item-start></ion-icon>
+    Número de Documento Extranjero
+  </ion-label>
+  <ion-input formControlName="2" type="text" [(ngModel)]="txt_cedula"></ion-input>
+  <div *ngIf="signup_form.get('2').errors && signup_form.get('2').dirty">
+  </div>
+</ion-item>
+
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Nombres
         </ion-label>
         <ion-input required color="secondary" formControlName="nombres" type="text" [(ngModel)]="txt_nombre"></ion-input>
       </ion-item>
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Apellidos
         </ion-label>
         <ion-input required color="secondary" formControlName="apellidos" type="text" [(ngModel)]="txt_apellido"></ion-input>
       </ion-item>
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Correo Electrónico
         </ion-label>
         <ion-input required color="secondary" formControlName="correo" type="email" [(ngModel)]="txt_correo"></ion-input>
       </ion-item>
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Teléfono
         </ion-label>
         <ion-input required color="secondary" formControlName="telefono" type="text" [(ngModel)]="txt_telefono"></ion-input>
       </ion-item>
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock-closed-outline"></ion-icon>
           Contraseña
@@ -69,7 +87,7 @@
         <ion-input required color="secondary" formControlName="clave" type="password" placeholder="Ingrese su contraseña" [(ngModel)]="txt_clave"></ion-input>
       </ion-item>
 
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock-closed-outline"></ion-icon>
           Confirmar contraseña

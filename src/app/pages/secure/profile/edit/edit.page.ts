@@ -82,7 +82,7 @@ export class EditPage implements OnInit {
     if(res.estado==true)
     {
       this.authService.showToast2(res.mensaje2);
-      this.router.navigate(['/home']);
+      this.authService.signOut();
     }
     
     else
@@ -104,14 +104,36 @@ export class EditPage implements OnInit {
           text: 'Elegir de la galería',
           icon: 'images',
           handler: () => {
-            // Put in logic ...
+            const inputElement = document.createElement('input');
+      inputElement.type = 'file';
+      inputElement.accept = 'image/*'; // Acepta solo archivos de imagen
+      inputElement.click(); // Hace clic en el elemento de entrada para abrir el selector de archivos
+  
+      // Maneja el cambio de archivo cuando se selecciona una imagen
+      inputElement.addEventListener('change', async (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+          // Aquí puedes implementar la lógica para procesar la imagen seleccionada y actualizar la foto de perfil
+          // Por ejemplo, puedes mostrar una vista previa de la imagen seleccionada antes de cargarla o guardarla
+          const reader = new FileReader();
+          reader.onload = async (e: any) => {
+            const imageSrc = e.target.result;
+            // Ahora puedes utilizar imageSrc para mostrar una vista previa de la imagen seleccionada o cargarla a un servidor
+            // Por ejemplo:
+            // this.profilePicturePreview = imageSrc; // Actualiza la vista previa de la foto de perfil
+            // Luego, puedes cargar la imagen al servidor utilizando una solicitud HTTP
+          };
+          reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+        }
+      });
+            
           }
         },
         {
           text: 'Tomar foto',
           icon: 'camera',
           handler: () => {
-            // Put in logic ...
+            
           }
         }, {
           text: 'Cancelar',
@@ -122,6 +144,7 @@ export class EditPage implements OnInit {
     await actionSheet.present();
   }
 
+  
   // Submit form
   submit() {
 
