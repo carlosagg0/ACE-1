@@ -53,46 +53,61 @@
 
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
+
+          <ion-icon name="person" item-start></ion-icon>
           Nombres
         </ion-label>
-        <ion-input required color="secondary" formControlName="nombres" type="text" [(ngModel)]="txt_nombre"></ion-input>
+        <ion-input required color="light" formControlName="nombres" type="text" [(ngModel)]="txt_nombre"></ion-input>
       </ion-item>
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
+
+          <ion-icon name="people" item-start></ion-icon>
           Apellidos
         </ion-label>
-        <ion-input required color="secondary" formControlName="apellidos" type="text" [(ngModel)]="txt_apellido"></ion-input>
+        <ion-input required color="light" formControlName="apellidos" type="text" [(ngModel)]="txt_apellido"></ion-input>
       </ion-item>
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
+
+          <ion-icon name="calendar" item-start></ion-icon>
+          Fecha de Nacimiento
+        </ion-label>
+        <ion-input required color="light" formControlName="edad" type="date" [(ngModel)]="txt_edad" placeholder="Selecciona una fecha"></ion-input>
+
+      </ion-item>
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
+        <ion-label position="floating">
+
           <ion-icon name="mail" item-start></ion-icon>
           Correo Electrónico
         </ion-label>
-        <ion-input required color="secondary" formControlName="correo" type="email" [(ngModel)]="txt_correo"></ion-input>
+        <ion-input required color="light" formControlName="correo" type="email" [(ngModel)]="txt_correo"></ion-input>
       </ion-item>
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
+
+          <ion-icon name="call" item-start></ion-icon>
           Teléfono
         </ion-label>
-        <ion-input required color="secondary" formControlName="telefono" type="text" [(ngModel)]="txt_telefono"></ion-input>
+        <ion-input required color="light" formControlName="telefono" type="text" [(ngModel)]="txt_telefono"></ion-input>
       </ion-item>
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
+
           <ion-icon name="lock-closed-outline"></ion-icon>
           Contraseña
         </ion-label>
-        <ion-input required color="secondary" formControlName="clave" type="password" placeholder="Ingrese su contraseña" [(ngModel)]="txt_clave"></ion-input>
+        <ion-input required color="light" formControlName="clave" type="password" placeholder="Ingrese su contraseña" [(ngModel)]="txt_clave"></ion-input>
       </ion-item>
 
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
+          
           <ion-icon name="lock-closed-outline"></ion-icon>
           Confirmar contraseña
         </ion-label>
-        <ion-input required color="secondary" formControlName="conf_clave" type="password" placeholder="Confirmar contraseña"></ion-input>
+        <ion-input required color="light" formControlName="conf_clave" type="password" placeholder="Confirmar contraseña"></ion-input>
       </ion-item>
 
       <ion-button class="ion-margin-top" type="submit" value="btn_reg" expand="block" size="large" color="secondary" >

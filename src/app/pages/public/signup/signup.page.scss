@@ -4,7 +4,8 @@
   }
 
   ion-content {
-      --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+    --background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),url('/src/assets/escudo.png') no-repeat center center;
+    background-color: white;
   }
 
   ion-item {
