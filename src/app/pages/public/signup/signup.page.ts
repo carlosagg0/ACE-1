@@ -12,7 +12,11 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class SignupPage implements OnInit {
   txt_nombre: string = "";
   txt_apellido: string = "";
+  txt_direccion: string = "";
+  txt_fecha_nacimiento="";
   txt_edad: string = "";
+  txt_neducacion: string = "";
+  txt_genero: string = "";
   txt_cedula: string = "";
   txt_correo: string = "";
   txt_clave: string = "";
@@ -39,7 +43,11 @@ export class SignupPage implements OnInit {
       cedula: ['', Validators.compose([Validators.minLength(10), Validators.required, this.cedulaEcuatorianaValidator()])],
       nombres: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
+      direccion: ['', [Validators.required]],
+      fecha_nacimiento: ['', [Validators.required]],
       edad: ['', [Validators.required]],
+      neducacion: ['', [Validators.required]],
+      genero: ['', [Validators.required]],
       correo: ['', Validators.compose([Validators.email, Validators.required])],
       telefono: ['', Validators.compose([Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.required])],
       clave: ['', Validators.compose([Validators.minLength(6), Validators.required])],
@@ -55,6 +63,10 @@ export class SignupPage implements OnInit {
       tipoced: this.sel_tipoced,
       nombre: this.txt_nombre,
       apellido: this.txt_apellido,
+      direccion: this.txt_direccion,
+      fecha_nacimiento: this.txt_fecha_nacimiento,
+      genero: this.txt_genero,
+      neducacion: this.txt_neducacion,
       edad: this.txt_edad,
       telefono: this.txt_telefono,
       correo: this.txt_correo,
