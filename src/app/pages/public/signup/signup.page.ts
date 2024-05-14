@@ -15,8 +15,18 @@ export class SignupPage implements OnInit {
   txt_direccion: string = "";
   txt_fecha_nacimiento="";
   txt_edad: string = "";
+  sel_ecivil: string = "";
+  sel_etnia: string = "";
+  sel_ocupacion: string = "";
+  sel_nacionalidad: string = "";
+  sel_ciudad: string = "";
+  sel_provincia: string = "";
+  txt_parroquia: string = "";
+  txt_barrio: string = "";
+  txt_calle1: string = "";
+  txt_calle2: string = "";
   txt_neducacion: string = "";
-  txt_genero: string = "";
+  sel_genero: string = "";
   txt_cedula: string = "";
   txt_correo: string = "";
   txt_clave: string = "";
@@ -46,6 +56,16 @@ export class SignupPage implements OnInit {
       direccion: ['', [Validators.required]],
       fecha_nacimiento: ['', [Validators.required]],
       edad: ['', [Validators.required]],
+      ecivil: ['', [Validators.required]],
+      etnia: ['', [Validators.required]],
+      ocupacion: ['', [Validators.required]],
+      nacionalidad: ['', [Validators.required]],
+      ciudad: ['', [Validators.required]],
+      provincia: ['', [Validators.required]],
+      parroquia: ['', [Validators.required]],
+      barrio: ['', [Validators.required]],
+      calle1: ['', [Validators.required]],
+      calle2: ['', [Validators.required]],
       neducacion: ['', [Validators.required]],
       genero: ['', [Validators.required]],
       correo: ['', Validators.compose([Validators.email, Validators.required])],
@@ -63,9 +83,19 @@ export class SignupPage implements OnInit {
       tipoced: this.sel_tipoced,
       nombre: this.txt_nombre,
       apellido: this.txt_apellido,
+      ecivil: this.sel_ecivil,
+      etnia: this.sel_etnia,
+      ocupacion: this.sel_ocupacion,
+      nacionalidad: this.sel_nacionalidad,
+      ciudad: this.sel_ciudad,
+      provincia: this.sel_provincia,
+      parroquia: this.txt_parroquia,
+      barrio: this.txt_barrio,
+      calle1: this.txt_calle1,
+      calle2: this.txt_calle2,
       direccion: this.txt_direccion,
       fecha_nacimiento: this.txt_fecha_nacimiento,
-      genero: this.txt_genero,
+      genero: this.sel_genero,
       neducacion: this.txt_neducacion,
       edad: this.txt_edad,
       telefono: this.txt_telefono,

@@ -25,7 +25,7 @@
     <form class="form-default" [formGroup]="signin_form" (submit)="login()">
       <ion-item color="dark" class="animate__animated animate__fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
+          <ion-icon name="card" item-start></ion-icon>
           Cédula
         </ion-label>
         <ion-input color="primary" type="text" formControlName="cedula" [(ngModel)]="txt_cedula"></ion-input>
@@ -34,7 +34,7 @@
       <ion-item color="dark" class="animate__animated animate__fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock-closed-outline"></ion-icon>
-          Password
+          Contraseña
         </ion-label>
         <ion-input color="primary" formControlName="clave" type="password" placeholder="Your password" [(ngModel)]="txt_clave"></ion-input>
       </ion-item>
