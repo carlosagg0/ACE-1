@@ -12,7 +12,7 @@
 
     <div class="logo-container">
       <h1 class="animate_animated animate_fadeInUp">
-        <ion-text color="light">Registro</ion-text>
+        <ion-text color="secundary">Registro</ion-text>
       </h1>
       <p class="animate_animated animate_fadeInUp">
         <ion-text color="secondary">Cree su cuenta gratis</ion-text>
@@ -86,7 +86,7 @@
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="add-circle" item-start></ion-icon>
+          <ion-icon name="person-outline" item-start></ion-icon>
           Estado Civil
         </ion-label>
         <ion-select formControlName="ecivil" [(ngModel)]="sel_ecivil">
@@ -101,7 +101,7 @@
               
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="add-circle" item-start></ion-icon>
+          <ion-icon name="globe-outline" item-start></ion-icon>
           Etnia
         </ion-label>
         <ion-select formControlName="etnia" [(ngModel)]="sel_etnia">
@@ -115,7 +115,7 @@
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="add-circle" item-start></ion-icon>
+          <ion-icon name="briefcase-outline" item-start></ion-icon>
           Ocupacion
         </ion-label>
         <ion-select formControlName="ocupacion" [(ngModel)]="sel_ocupacion">
@@ -134,84 +134,64 @@
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="add-circle" item-start></ion-icon>
+          <ion-icon name="flag-outline" item-start></ion-icon>
           Nacionalidad
         </ion-label>
         <ion-select formControlName="nacionalidad" [(ngModel)]="sel_nacionalidad">
-          <ion-select-option value="soltero">Soltero/a</ion-select-option>
-              <ion-select-option value="casado">Casado/a</ion-select-option>
-              <ion-select-option value="viudo">Viudo/a</ion-select-option>
-              <ion-select-option value="divorciado">Divorciado/a</ion-select-option>
-              <ion-select-option value="otro">Otro</ion-select-option>
+            <ion-select-option *ngFor="let nac of nacionalidades" value={{nac.codigo}}>{{nac.nombre}}</ion-select-option>
         </ion-select>
       </ion-item>
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="add-circle" item-start></ion-icon>
+          <ion-icon name="location-outline" item-start></ion-icon>
           Ciudad
         </ion-label>
         <ion-select formControlName="ciudad" [(ngModel)]="sel_ciudad">
-          <ion-select-option value="soltero">Soltero/a</ion-select-option>
-              <ion-select-option value="casado">Casado/a</ion-select-option>
-              <ion-select-option value="viudo">Viudo/a</ion-select-option>
-              <ion-select-option value="divorciado">Divorciado/a</ion-select-option>
-              <ion-select-option value="otro">Otro</ion-select-option>
+          <ion-select-option *ngFor="let ciu of ciudades" value={{ciu.codigo}}>{{ciu.nombre}}</ion-select-option>
         </ion-select>
       </ion-item>
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="add-circle" item-start></ion-icon>
+          <ion-icon name="map-outline" item-start></ion-icon>
           Provincia
         </ion-label>
         <ion-select formControlName="provincia" [(ngModel)]="sel_provincia">
-          <ion-select-option value="soltero">Soltero/a</ion-select-option>
-              <ion-select-option value="casado">Casado/a</ion-select-option>
-              <ion-select-option value="viudo">Viudo/a</ion-select-option>
-              <ion-select-option value="divorciado">Divorciado/a</ion-select-option>
-              <ion-select-option value="otro">Otro</ion-select-option>
+          <ion-select-option *ngFor="let prov of provincias" value={{prov.codigo}}>{{prov.nombre}}</ion-select-option>
         </ion-select>
       </ion-item>
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="calendar" item-start></ion-icon>
+          <ion-icon name="compass-outline" item-start></ion-icon>
           Parroquia
         </ion-label>
-        <ion-input required color="light" formControlName="edad" type="text" [(ngModel)]="txt_parroquia" placeholder="Selecciona una fecha"></ion-input>
+        <ion-input required color="light" formControlName="parroquia" type="text" [(ngModel)]="txt_parroquia" placeholder="Selecciona una fecha"></ion-input>
       </ion-item>
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="calendar" item-start></ion-icon>
+          <ion-icon name="pin-outline" item-start></ion-icon>
           Barrio
         </ion-label>
-        <ion-input required color="light" formControlName="edad" type="text" [(ngModel)]="txt_barrio" placeholder="Selecciona una fecha"></ion-input>
+        <ion-input required color="light" formControlName="barrio" type="text" [(ngModel)]="txt_barrio" placeholder="Selecciona una fecha"></ion-input>
       </ion-item>
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="calendar" item-start></ion-icon>
+          <ion-icon name="navigate-outline" item-start></ion-icon>
           Calle Principal
         </ion-label>
-        <ion-input required color="light" formControlName="edad" type="text" [(ngModel)]="txt_calle1" placeholder="Selecciona una fecha"></ion-input>
+        <ion-input required color="light" formControlName="calle1" type="text" [(ngModel)]="txt_calle1" placeholder="Selecciona una fecha"></ion-input>
       </ion-item>
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="calendar" item-start></ion-icon>
+          <ion-icon name="navigate-outline" item-start></ion-icon>
           Calle Secundaria
         </ion-label>
-        <ion-input required color="light" formControlName="edad" type="text" [(ngModel)]="txt_calle2" placeholder="Selecciona una fecha"></ion-input>
-      </ion-item>
-     
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="location" item-start></ion-icon>
-          Direcion Domiciliaria
-        </ion-label>
-        <ion-input required color="light" formControlName="direccion" type="text" [(ngModel)]="txt_direccion"></ion-input>
+        <ion-input required color="light" formControlName="calle2" type="text" [(ngModel)]="txt_calle2" placeholder="Selecciona una fecha"></ion-input>
       </ion-item>
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
@@ -266,14 +246,14 @@
  
         <ion-input required color="light" formControlName="conf_clave" type="password" placeholder="Confirmar contraseña"></ion-input>
       </ion-item>
-      <ion-button class="ion-margin-top" type="submit" value="btn_reg" expand="block" size="large" color="secondary" >
+      <ion-button class="ion-margin-top" type="submit" value="btn_reg" expand="block" size="large" color="danger" >
         Regístrese Gratis
       </ion-button>
     </form>
 
     <div class="ion-text-center ion-margin-top">
       <ion-text color="medium">
-        <small>&copy;{{current_year}} Firmino.dev</small>
+        <small>&copy;{{current_year}} Alcaldia De Ibarra</small>
       </ion-text>
     </div>
 

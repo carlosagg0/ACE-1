@@ -10,9 +10,12 @@ import { ToastService } from 'src/app/services/toast/toast.service';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
+  codigo: string = '';
+  nacionalidades: any = [];
+  ciudades: any = [];
+  provincias: any = [];
   txt_nombre: string = "";
   txt_apellido: string = "";
-  txt_direccion: string = "";
   txt_fecha_nacimiento="";
   txt_edad: string = "";
   sel_ecivil: string = "";
@@ -43,7 +46,13 @@ export class SignupPage implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private toastService: ToastService
-  ) { }
+  ) { 
+    this.authService.getSession('persona').then((res: any) => {
+      this.lnacionalidades(this.codigo),
+      this.lciudades(this.codigo)
+      this.lprovincias(this.codigo)
+    });
+  }
 
   ngOnInit() {
     // Setup form
@@ -53,7 +62,6 @@ export class SignupPage implements OnInit {
       cedula: ['', Validators.compose([Validators.minLength(10), Validators.required, this.cedulaEcuatorianaValidator()])],
       nombres: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
       fecha_nacimiento: ['', [Validators.required]],
       edad: ['', [Validators.required]],
       ecivil: ['', [Validators.required]],
@@ -93,7 +101,6 @@ export class SignupPage implements OnInit {
       barrio: this.txt_barrio,
       calle1: this.txt_calle1,
       calle2: this.txt_calle2,
-      direccion: this.txt_direccion,
       fecha_nacimiento: this.txt_fecha_nacimiento,
       genero: this.sel_genero,
       neducacion: this.txt_neducacion,
@@ -169,6 +176,43 @@ export class SignupPage implements OnInit {
       }
       return null;
     };
+  }
+
+  lnacionalidades(codigo: string){
+    let datos = {
+      accion:"lnacionalidad"
+    }
+    this.authService.postData(datos).subscribe((res:any) => {
+      if(res.estado == true) {
+        this.nacionalidades = res.datos
+      } else {
+        this.nacionalidades.showToast(res.mensaje)
+      }
+    });
+  }
+  lciudades(codigo: string){
+    let datos = {
+      accion:"lciudad"
+    }
+    this.authService.postData(datos).subscribe((res:any) => {
+      if(res.estado == true) {
+        this.ciudades = res.datos
+      } else {
+        this.ciudades.showToast(res.mensaje)
+      }
+    });
+  }
+  lprovincias(codigo: string){
+    let datos = {
+      accion:"lprovincia"
+    }
+    this.authService.postData(datos).subscribe((res:any) => {
+      if(res.estado == true) {
+        this.provincias = res.datos
+      } else {
+        this.provincias.showToast(res.mensaje)
+      }
+    });
   }
   
   }
