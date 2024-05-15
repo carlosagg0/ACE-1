@@ -28,7 +28,7 @@ export class SignupPage implements OnInit {
   txt_barrio: string = "";
   txt_calle1: string = "";
   txt_calle2: string = "";
-  txt_neducacion: string = "";
+  sel_neducacion: string = "";
   sel_genero: string = "";
   txt_cedula: string = "";
   txt_correo: string = "";
@@ -103,7 +103,7 @@ export class SignupPage implements OnInit {
       calle2: this.txt_calle2,
       fecha_nacimiento: this.txt_fecha_nacimiento,
       genero: this.sel_genero,
-      neducacion: this.txt_neducacion,
+      neducacion: this.sel_neducacion,
       edad: this.txt_edad,
       telefono: this.txt_telefono,
       correo: this.txt_correo,

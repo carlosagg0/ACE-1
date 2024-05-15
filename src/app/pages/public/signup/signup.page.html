@@ -209,9 +209,17 @@
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="school" item-start></ion-icon>
-          Nivel de Educación
+          Nivel de Educacion
         </ion-label>
-        <ion-input required color="light" formControlName="neducacion" type="text" [(ngModel)]="txt_neducacion"></ion-input>
+        <ion-select formControlName="neducacion" [(ngModel)]="sel_neducacion">
+          <ion-select-option value="preescolar">Preescolar</ion-select-option>
+    <ion-select-option value="primaria">Primaria</ion-select-option>
+    <ion-select-option value="secundaria">Secundaria</ion-select-option>
+    <ion-select-option value="bachillerato">Bachillerato</ion-select-option>
+    <ion-select-option value="universitario">Universitario</ion-select-option>
+    <ion-select-option value="posgrado">Posgrado</ion-select-option>
+    <ion-select-option value="ninguno">Posgrado</ion-select-option>
+        </ion-select>
       </ion-item>
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
