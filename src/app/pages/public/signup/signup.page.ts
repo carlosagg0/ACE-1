@@ -20,6 +20,10 @@ export class SignupPage implements OnInit {
   txt_edad: string = "";
   sel_ecivil: string = "";
   sel_etnia: string = "";
+  sel_discapacidad: string = "";
+  txt_tipodis: string = "";
+  txt_porcentajedis: string = "";
+  txt_ncarnetdis: string = "";
   sel_ocupacion: string = "";
   sel_nacionalidad: string = "";
   sel_ciudad: string = "";
@@ -66,6 +70,10 @@ export class SignupPage implements OnInit {
       edad: ['', [Validators.required]],
       ecivil: ['', [Validators.required]],
       etnia: ['', [Validators.required]],
+      discapacidad: ['', [Validators.required]],
+      tipodis: ['', [Validators.required]],
+      porcentajedis: ['', [Validators.required]],
+      ncarnetdis: ['', [Validators.required]],
       ocupacion: ['', [Validators.required]],
       nacionalidad: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
@@ -93,6 +101,10 @@ export class SignupPage implements OnInit {
       apellido: this.txt_apellido,
       ecivil: this.sel_ecivil,
       etnia: this.sel_etnia,
+      discapacidad: this.sel_discapacidad,
+      tipodis: this.txt_tipodis,
+      porcentajedis: this.txt_porcentajedis,
+      ncarnetdis: this.txt_ncarnetdis,
       ocupacion: this.sel_ocupacion,
       nacionalidad: this.sel_nacionalidad,
       ciudad: this.sel_ciudad,

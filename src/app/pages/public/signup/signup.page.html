@@ -112,6 +112,43 @@
               <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
       </ion-item>
+
+      <ion-item color="dark" class="animate_animated animate_fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="accessibility-outline" item-start></ion-icon>
+          Discapacidad
+        </ion-label>
+        <ion-select formControlName="discapacidad" [(ngModel)]="sel_discapacidad">
+          <ion-select-option value="Si">Sí</ion-select-option>
+          <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <!-- Mostrar campos adicionales si se selecciona "Sí" -->
+      <div *ngIf="sel_discapacidad === 'Si'">
+        <ion-item>
+          <ion-label>
+            <ion-icon name="eye-outline" item-start></ion-icon>
+            Tipo de discapacidad
+          </ion-label>
+          <ion-input required color="dark" formControlName="tipodis" type="text" [(ngModel)]="txt_tipodis" placeholder="Ingrese el tipo de discapacidad"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="stats-chart-outline" item-start></ion-icon>
+            Porcentaje
+          </ion-label>
+          <ion-input required color="dark" formControlName="porcentajedis" type="text" [(ngModel)]="txt_porcentajedis" placeholder="Ingrese el porsentaje de discapacidad"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="card-outline" item-start></ion-icon>
+            N° Carnet
+          </ion-label>
+          <ion-input required color="dark" formControlName="parroquia" type="text" [(ngModel)]="txt_ncarnetdis" placeholder="Ingrese el numero de carnet"></ion-input>
+        </ion-item>
+      </div>
+      
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
@@ -144,24 +181,24 @@
   
     <ion-item color="dark" class="animate_animated animate_fadeInUp">
       <ion-label>
-        <ion-icon name="flag-outline" item-start></ion-icon>
-        Ciudad
+
+        <ion-icon name="map-outline" item-start></ion-icon>
+        Provincia
       </ion-label>
-      <ion-select formControlName="ciudad" [(ngModel)]="sel_ciudad">
-        <ion-select-option *ngFor="let ciu of ciudades" value={{ciu.codigo}}>{{ciu.nombre}}</ion-select-option>
+      <ion-select formControlName="provincia" [(ngModel)]="sel_provincia">
+        <ion-select-option *ngFor="let prov of provincias" value={{prov.codigo}}>{{prov.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
     
     <!-- Mostrar campos adicionales si se selecciona una ciudad -->
-    <div *ngIf="sel_ciudad">
+    <div *ngIf="sel_provincia">
       <ion-item>    
         <ion-label>
-          <ion-icon name="map-outline" item-start></ion-icon>
-          Provincia
+          <ion-icon name="flag-outline" item-start></ion-icon>
+          Ciudad
         </ion-label>
-        <ion-select formControlName="provincia" [(ngModel)]="sel_provincia">
-          <ion-select-option *ngFor="let prov of provincias" value={{prov.codigo}}>{{prov.nombre}}</ion-select-option>
-        </ion-select>
+        <ion-select formControlName="ciudad" [(ngModel)]="sel_ciudad">
+          <ion-select-option *ngFor="let ciu of ciudades" value={{ciu.codigo}}>{{ciu.nombre}}</ion-select-option></ion-select>
         </ion-item>
       <ion-item>
         <ion-label>
@@ -195,58 +232,6 @@
     </ion-item>
 
     </div>
-   
-   <!-- <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="location-outline" item-start></ion-icon>
-          Ciudad
-        </ion-label>
-        <ion-select formControlName="ciudad" [(ngModel)]="sel_ciudad">
-          <ion-select-option *ngFor="let ciu of ciudades" value={{ciu.codigo}}>{{ciu.nombre}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-     
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="map-outline" item-start></ion-icon>
-          Provincia
-        </ion-label>
-        <ion-select formControlName="provincia" [(ngModel)]="sel_provincia">
-          <ion-select-option *ngFor="let prov of provincias" value={{prov.codigo}}>{{prov.nombre}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-     
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="compass-outline" item-start></ion-icon>
-          Parroquia
-        </ion-label>
-        <ion-input required color="light" formControlName="parroquia" type="text" [(ngModel)]="txt_parroquia" placeholder="Selecciona una fecha"></ion-input>
-      </ion-item>
-      
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="pin-outline" item-start></ion-icon>
-          Barrio
-        </ion-label>
-        <ion-input required color="light" formControlName="barrio" type="text" [(ngModel)]="txt_barrio" placeholder="Selecciona una fecha"></ion-input>
-      </ion-item> 
-     
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="navigate-outline" item-start></ion-icon>
-          Calle Principal
-        </ion-label>
-        <ion-input required color="light" formControlName="calle1" type="text" [(ngModel)]="txt_calle1" placeholder="Selecciona una fecha"></ion-input>
-      </ion-item>
-      
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">
-          <ion-icon name="navigate-outline" item-start></ion-icon>
-          Calle Secundaria
-        </ion-label>
-        <ion-input required color="light" formControlName="calle2" type="text" [(ngModel)]="txt_calle2" placeholder="Selecciona una fecha"></ion-input>
-      </ion-item> -->
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
