@@ -67,7 +67,7 @@ export class SignupPage implements OnInit {
       nombres: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
       fecha_nacimiento: ['', [Validators.required]],
-      edad: ['', [Validators.required]],
+    //  edad: ['', [Validators.required]],
       ecivil: ['', [Validators.required]],
       etnia: ['', [Validators.required]],
       discapacidad: ['', [Validators.required]],
