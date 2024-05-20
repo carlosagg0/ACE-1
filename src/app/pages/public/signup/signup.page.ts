@@ -20,6 +20,7 @@ export class SignupPage implements OnInit {
   txt_edad: string = "";
   sel_ecivil: string = "";
   sel_etnia: string = "";
+  txt_otraEtnia: string = "";
   sel_discapacidad: string = "";
   txt_tipodis: string = "";
   txt_porcentajedis: string = "";
@@ -67,9 +68,9 @@ export class SignupPage implements OnInit {
       nombres: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
       fecha_nacimiento: ['', [Validators.required]],
-    //  edad: ['', [Validators.required]],
       ecivil: ['', [Validators.required]],
       etnia: ['', [Validators.required]],
+      otraetnia: ['', [Validators.required]],
       discapacidad: ['', [Validators.required]],
       tipodis: ['', [Validators.required]],
       porcentajedis: ['', [Validators.required]],
@@ -91,6 +92,19 @@ export class SignupPage implements OnInit {
     });
   }
 
+  // Maneja el cambio de selección de etnia
+  onEtniaChange(event: any) {
+    this.sel_etnia = event.detail.value;
+    const otraEtniaControl = this.signup_form.get('otraetnia');
+    if (this.sel_etnia === 'otro') {
+      otraEtniaControl.setValidators([Validators.required]);
+    } else {
+      otraEtniaControl.clearValidators();
+    }
+    otraEtniaControl.updateValueAndValidity();
+  }
+  
+
   // Sign up
   async registrar() {
     let datos = {
@@ -101,6 +115,7 @@ export class SignupPage implements OnInit {
       apellido: this.txt_apellido,
       ecivil: this.sel_ecivil,
       etnia: this.sel_etnia,
+      otraetnia: this.txt_otraEtnia,
       discapacidad: this.sel_discapacidad,
       tipodis: this.txt_tipodis,
       porcentajedis: this.txt_porcentajedis,
@@ -121,8 +136,11 @@ export class SignupPage implements OnInit {
       correo: this.txt_correo,
       clave: this.txt_clave,
     }
-    
 
+    if (this.sel_etnia !== 'otro') {
+        this.txt_otraEtnia = '';
+      }
+      
     this.authService.postData(datos).subscribe((res: any) => {
       if (res.estado == true) {
         this.mostrarMensajeRegistroExitoso();
@@ -225,6 +243,7 @@ export class SignupPage implements OnInit {
         this.provincias.showToast(res.mensaje)
       }
     });
+    
   }
   
   

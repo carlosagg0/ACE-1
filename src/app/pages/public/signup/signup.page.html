@@ -104,14 +104,23 @@
           <ion-icon name="globe-outline" item-start></ion-icon>
           Etnia
         </ion-label>
-        <ion-select formControlName="etnia" [(ngModel)]="sel_etnia">
+        <ion-select formControlName="etnia" [(ngModel)]="sel_etnia" (ionChange)="onEtniaChange($event)">
           <ion-select-option value="Indigena">Indigena</ion-select-option>
-              <ion-select-option value="Mestiza">Mestiza</ion-select-option>
-              <ion-select-option value="Afro Ecuatoriana">Afro Ecuatoriana</ion-select-option>
-              <ion-select-option value="Blanca">Blanca</ion-select-option>
-              <ion-select-option value="otro">Otro</ion-select-option>
+          <ion-select-option value="Mestiza">Mestiza</ion-select-option>
+          <ion-select-option value="Afro Ecuatoriana">Afro Ecuatoriana</ion-select-option>
+          <ion-select-option value="Blanca">Blanca</ion-select-option>
+          <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
       </ion-item>
+      
+      <!-- Campo de texto adicional para "Otro" -->
+<ion-item *ngIf="sel_etnia === 'otro'" color="dark" class="animate_animated animate_fadeInUp">
+  <ion-label position="floating">
+    Especifique su etnia
+  </ion-label>
+  <ion-input formControlName="otraetnia" [(ngModel)]="txt_otraEtnia"></ion-input>
+</ion-item>
+      
 
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
@@ -192,7 +201,7 @@
     
     <!-- Mostrar campos adicionales si se selecciona una ciudad -->
     <div *ngIf="sel_provincia">
-      <ion-item color="dark" class="animate_animated animate_fadeInUp">    
+      <ion-item color="light" class="animate_animated animate_fadeInUp">    
         <ion-label>
           <ion-icon name="flag-outline" item-start></ion-icon>
           Ciudad
