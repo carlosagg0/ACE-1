@@ -86,8 +86,8 @@ export class SignupPage implements OnInit {
       genero: ['', [Validators.required]],
       correo: ['', Validators.compose([Validators.email, Validators.required])],
       telefono: ['', Validators.compose([Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.required])],
-      clave: ['', Validators.compose([Validators.minLength(6), Validators.required])],
-      conf_clave: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      clave: ['', Validators.compose([Validators.minLength(8), Validators.required])],
+      conf_clave: ['', Validators.compose([Validators.minLength(8), Validators.required])]
     });
   }
 
