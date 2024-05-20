@@ -19,13 +19,15 @@ export class SignupPage implements OnInit {
   txt_fecha_nacimiento="";
   txt_edad: string = "";
   sel_ecivil: string = "";
+  txt_otro_ecivil: string = "";
   sel_etnia: string = "";
-  txt_otraEtnia: string = "";
+  txt_otra_etnia: string = "";
   sel_discapacidad: string = "";
   txt_tipodis: string = "";
   txt_porcentajedis: string = "";
   txt_ncarnetdis: string = "";
   sel_ocupacion: string = "";
+  txt_otra_ocupacion: string = "";
   sel_nacionalidad: string = "";
   sel_ciudad: string = "";
   sel_provincia: string = "";
@@ -35,6 +37,7 @@ export class SignupPage implements OnInit {
   txt_calle2: string = "";
   sel_neducacion: string = "";
   sel_genero: string = "";
+  txt_otro_genero: string = "";
   txt_cedula: string = "";
   txt_correo: string = "";
   txt_clave: string = "";
@@ -69,6 +72,7 @@ export class SignupPage implements OnInit {
       apellidos: ['', [Validators.required]],
       fecha_nacimiento: ['', [Validators.required]],
       ecivil: ['', [Validators.required]],
+      otroecivil: ['', [Validators.required]],
       etnia: ['', [Validators.required]],
       otraetnia: ['', [Validators.required]],
       discapacidad: ['', [Validators.required]],
@@ -76,6 +80,7 @@ export class SignupPage implements OnInit {
       porcentajedis: ['', [Validators.required]],
       ncarnetdis: ['', [Validators.required]],
       ocupacion: ['', [Validators.required]],
+      otraocupacion: ['', [Validators.required]],
       nacionalidad: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
       provincia: ['', [Validators.required]],
@@ -85,6 +90,7 @@ export class SignupPage implements OnInit {
       calle2: ['', [Validators.required]],
       neducacion: ['', [Validators.required]],
       genero: ['', [Validators.required]],
+      otrogenero: ['', [Validators.required]],
       correo: ['', Validators.compose([Validators.email, Validators.required])],
       telefono: ['', Validators.compose([Validators.pattern('^[0-9]*$'), Validators.minLength(10), Validators.required])],
       clave: ['', Validators.compose([Validators.minLength(8), Validators.required])],
@@ -92,17 +98,7 @@ export class SignupPage implements OnInit {
     });
   }
 
-  // Maneja el cambio de selección de etnia
-  onEtniaChange(event: any) {
-    this.sel_etnia = event.detail.value;
-    const otraEtniaControl = this.signup_form.get('otraetnia');
-    if (this.sel_etnia === 'otro') {
-      otraEtniaControl.setValidators([Validators.required]);
-    } else {
-      otraEtniaControl.clearValidators();
-    }
-    otraEtniaControl.updateValueAndValidity();
-  }
+  
   
 
   // Sign up
@@ -114,13 +110,15 @@ export class SignupPage implements OnInit {
       nombre: this.txt_nombre,
       apellido: this.txt_apellido,
       ecivil: this.sel_ecivil,
+      otroecivil: this.txt_otro_ecivil,
       etnia: this.sel_etnia,
-      otraetnia: this.txt_otraEtnia,
+      otraetnia: this.txt_otra_etnia,
       discapacidad: this.sel_discapacidad,
       tipodis: this.txt_tipodis,
       porcentajedis: this.txt_porcentajedis,
       ncarnetdis: this.txt_ncarnetdis,
       ocupacion: this.sel_ocupacion,
+      otraocupacion: this.txt_otra_ocupacion,
       nacionalidad: this.sel_nacionalidad,
       ciudad: this.sel_ciudad,
       provincia: this.sel_provincia,
@@ -130,16 +128,13 @@ export class SignupPage implements OnInit {
       calle2: this.txt_calle2,
       fecha_nacimiento: this.txt_fecha_nacimiento,
       genero: this.sel_genero,
+      otrogenero: this.txt_otro_genero,
       neducacion: this.sel_neducacion,
       edad: this.txt_edad,
       telefono: this.txt_telefono,
       correo: this.txt_correo,
       clave: this.txt_clave,
     }
-
-    if (this.sel_etnia !== 'otro') {
-        this.txt_otraEtnia = '';
-      }
       
     this.authService.postData(datos).subscribe((res: any) => {
       if (res.estado == true) {

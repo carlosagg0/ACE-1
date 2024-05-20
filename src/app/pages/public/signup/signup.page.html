@@ -90,21 +90,27 @@
           Estado Civil
         </ion-label>
         <ion-select formControlName="ecivil" [(ngModel)]="sel_ecivil">
-          <ion-select-option value="soltero">Soltero/a</ion-select-option>
+              <ion-select-option value="soltero">Soltero/a</ion-select-option>
               <ion-select-option value="casado">Casado/a</ion-select-option>
               <ion-select-option value="viudo">Viudo/a</ion-select-option>
               <ion-select-option value="divorciado">Divorciado/a</ion-select-option>
               <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
       </ion-item>
-      
-              
+      <!-- Campo de texto adicional para "Otro" -->
+      <ion-item *ngIf="sel_ecivil === 'otro'" color="dark" class="animate_animated animate_fadeInUp">
+        <ion-label position="floating">
+          Especifique su estado civil
+        </ion-label>
+        <ion-input formControlName="otroecivil" [(ngModel)]="txt_otro_ecivil"></ion-input>
+      </ion-item>
+
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="globe-outline" item-start></ion-icon>
           Etnia
         </ion-label>
-        <ion-select formControlName="etnia" [(ngModel)]="sel_etnia" (ionChange)="onEtniaChange($event)">
+        <ion-select formControlName="etnia" [(ngModel)]="sel_etnia">
           <ion-select-option value="Indigena">Indigena</ion-select-option>
           <ion-select-option value="Mestiza">Mestiza</ion-select-option>
           <ion-select-option value="Afro Ecuatoriana">Afro Ecuatoriana</ion-select-option>
@@ -113,13 +119,13 @@
         </ion-select>
       </ion-item>
       
-      <!-- Campo de texto adicional para "Otro" -->
-<ion-item *ngIf="sel_etnia === 'otro'" color="dark" class="animate_animated animate_fadeInUp">
-  <ion-label position="floating">
-    Especifique su etnia
-  </ion-label>
-  <ion-input formControlName="otraetnia" [(ngModel)]="txt_otraEtnia"></ion-input>
-</ion-item>
+     <!-- Campo de texto adicional para "Otro" -->
+     <ion-item *ngIf="sel_etnia === 'otro'" color="dark" class="animate_animated animate_fadeInUp">
+      <ion-label position="floating">
+        Especifique su etnia
+      </ion-label>
+      <ion-input formControlName="otraetnia" [(ngModel)]="txt_otra_etnia"></ion-input>
+    </ion-item>
       
 
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
@@ -176,6 +182,14 @@
               <ion-select-option value="Jubilado">Jubilado</ion-select-option>
               <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
+      </ion-item>
+
+            <!-- Campo de texto adicional para "Otro" -->
+      <ion-item *ngIf="sel_ocupacion === 'otro'" color="dark" class="animate_animated animate_fadeInUp">
+        <ion-label position="floating">
+          Especifique su ocupación
+        </ion-label>
+        <ion-input formControlName="otraocupacion" [(ngModel)]="txt_otra_ocupacion"></ion-input>
       </ion-item>
       
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
@@ -252,6 +266,14 @@
           <ion-select-option value="femenino">Femenino</ion-select-option>
           <ion-select-option value="otro">Otro</ion-select-option>
         </ion-select>
+      </ion-item>
+
+      <!-- Campo de texto adicional para "Otro" -->
+      <ion-item *ngIf="sel_genero === 'otro'" color="dark" class="animate_animated animate_fadeInUp">
+        <ion-label position="floating">
+          Especifique su género
+        </ion-label>
+        <ion-input formControlName="otrogenero" [(ngModel)]="txt_otro_genero"></ion-input>
       </ion-item>
      
       <ion-item color="dark" class="animate_animated animate_fadeInUp">
