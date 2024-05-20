@@ -76,9 +76,9 @@ export class SignupPage implements OnInit {
       etnia: ['', [Validators.required]],
       otraetnia: ['', [Validators.required]],
       discapacidad: ['', [Validators.required]],
-      tipodis: ['', [Validators.required]],
-      porcentajedis: ['', [Validators.required]],
-      ncarnetdis: ['', [Validators.required]],
+      tipodis: [''],
+      porcentajedis: [''],
+      ncarnetdis: [''],
       ocupacion: ['', [Validators.required]],
       otraocupacion: ['', [Validators.required]],
       nacionalidad: ['', [Validators.required]],
@@ -141,7 +141,7 @@ export class SignupPage implements OnInit {
         this.mostrarMensajeRegistroExitoso();
         this.router.navigate(['/signin']); // Redirecciona al inicio de sesión
       } else {
-        this.authService.showToast1(res.mensaje1);
+        this.authService.showToast(res.mensaje);
       }
       
     });
