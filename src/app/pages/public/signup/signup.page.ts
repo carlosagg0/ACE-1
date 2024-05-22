@@ -17,7 +17,6 @@ export class SignupPage implements OnInit {
   txt_nombre: string = "";
   txt_apellido: string = "";
   txt_fecha_nacimiento="";
-  txt_edad: string = "";
   sel_ecivil: string = "";
   txt_otro_ecivil: string = "";
   sel_etnia: string = "";
@@ -28,9 +27,9 @@ export class SignupPage implements OnInit {
   txt_ncarnetdis: string = "";
   sel_ocupacion: string = "";
   txt_otra_ocupacion: string = "";
-  sel_nacionalidad: string = "";
-  sel_ciudad: string = "";
-  sel_provincia: string = "";
+  sel_nacionalidad: string = "51";
+  sel_ciudad: string = "15";
+  sel_provincia: string = "11";
   txt_parroquia: string = "";
   txt_barrio: string = "";
   txt_calle1: string = "";
@@ -103,6 +102,33 @@ export class SignupPage implements OnInit {
 
   // Sign up
   async registrar() {
+
+    //SI LOS CAMPOS OBLIGATIRIOS ESTAN VACIOS
+    if (this.signup_form.value.correo == '' ||this.signup_form.value.tipo_documento == '' || this.signup_form.value.nombres == '' ||this.signup_form.value.apellidos == '' || this.signup_form.value.fecha_nacimiento == '' ||this.signup_form.value.ecivil == '' ||this.signup_form.value.etnia == '' ||this.signup_form.value.discapacidad == '' ||this.signup_form.value.ocupacion == '' ||this.signup_form.value.nacionalidad == '' ||this.signup_form.value.ciudad == '' ||this.signup_form.value.provincia == '' ||this.signup_form.value.parroquia == '' ||this.signup_form.value.parroquia == '' ||this.signup_form.value.barrio == '' ||this.signup_form.value.calle1 == '' ||this.signup_form.value.calle2 == '' ||this.signup_form.value.neducacion == '' ||this.signup_form.value.genero == '' ||  this.signup_form.value.cedula == '' ||this.signup_form.value.correo == '' ||this.signup_form.value.telefono == '' ||this.signup_form.value.clave == '' || this.signup_form.value.conf_clave == '') {
+      this.signup_form.value.btn_reg =
+      this.authService.showToast('Todos los campos son obligatorios y no pueden estar vacíos');
+    }
+    
+    if (this.signup_form.value.clave !== this.signup_form.value.conf_clave) {
+      this.authService.showToast('Las contraseñas no coinciden');
+      return;
+    }
+
+    if (!this.validateEmail(this.signup_form.value.correo)) {
+      this.authService.showToast('El correo electrónico no es válido');
+      return;
+    }
+
+    if (!this.validatePhoneNumber(this.signup_form.value.telefono)) {
+      this.authService.showToast('El número de teléfono no es válido');
+      return;
+    }
+    
+    if (this.signup_form.get('cedula').errors && this.signup_form.get('cedula').errors.cedulaEcuatoriana) {
+      this.authService.showToast2('La cedula no es válida');
+      return;
+    }
+    
     let datos = {
       accion: "n_usuario",
       cedula: this.txt_cedula,
@@ -130,10 +156,10 @@ export class SignupPage implements OnInit {
       genero: this.sel_genero,
       otrogenero: this.txt_otro_genero,
       neducacion: this.sel_neducacion,
-      edad: this.txt_edad,
       telefono: this.txt_telefono,
       correo: this.txt_correo,
       clave: this.txt_clave,
+      conf_clave:this.txt_clave
     }
       
     this.authService.postData(datos).subscribe((res: any) => {
@@ -146,33 +172,13 @@ export class SignupPage implements OnInit {
       
     });
     
-    
 
-
-
-    // If email or password empty
-    if (this.signup_form.value.correo == '' || this.signup_form.value.clave == '' || this.signup_form.value.password_repeat == '') {
-      this.signup_form.value.btn_reg =
-        this.toastService.presentToast('Error', 'Todos los campos son obligatorios y no pueden estar vacíos', 'top', 'danger', 500);
-    }
-    else if (!this.validateEmail(this.signup_form.value.correo)) {
-      this.toastService.presentToast('Error', 'El correo electrónico no es válido', 'top', 'danger', 4000);
-      return; // Detener el proceso de registro si el correo electrónico no es válido
-    }
-    else if (!this.validatePhoneNumber(this.signup_form.value.telefono)) {
-      this.toastService.presentToast('Error', 'El número de teléfono no es válido', 'top', 'danger', 4000);
-      return; // Detener el proceso de registro si el número de teléfono no es válido
-    }
-
-    // If passwords do not match
-    else if (this.signup_form.value.clave != this.signup_form.value.conf_clave) {
-      this.toastService.presentToast('Error', 'Las contraseñas no coinciden', 'top', 'danger', 4000);
-    }
   }
 
   async mostrarMensajeRegistroExitoso() {
     const toast = await this.toastService.presentToast('Éxito', '¡Se ha registrado correctamente!', 'top', 'success', 3000);
   }
+  
   validateEmail(correo: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(correo);

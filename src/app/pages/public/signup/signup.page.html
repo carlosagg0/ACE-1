@@ -36,7 +36,7 @@
     <ion-icon name="person" item-start></ion-icon>
     Número de Cédula
   </ion-label>
-  <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula"></ion-input>
+  <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula" minlength="10"></ion-input>
   <div *ngIf="signup_form.get('cedula').errors && signup_form.get('cedula').dirty">
   </div>
 </ion-item>
