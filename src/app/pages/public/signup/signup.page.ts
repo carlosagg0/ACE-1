@@ -125,7 +125,7 @@ export class SignupPage implements OnInit {
     }
     
     if (this.signup_form.get('cedula').errors && this.signup_form.get('cedula').errors.cedulaEcuatoriana) {
-      this.authService.showToast2('La cedula no es válida');
+      this.authService.showToast('La cedula no es válida');
       return;
     }
     
@@ -201,6 +201,7 @@ export class SignupPage implements OnInit {
           suma += resultado;
         }
         const digitoVerificador = (suma % 10 === 0) ? 0 : (10 - (suma % 10));
+        
         if (parseInt(cedula.charAt(9)) !== digitoVerificador) {
           return { 'cedulaEcuatoriana': true };
         }

@@ -25,7 +25,7 @@
     <ion-icon name="card" item-start></ion-icon>
     Tipo de Documento
   </ion-label>
-  <ion-select formControlName="tipo_documento" placeholder="Seleccionar" [(ngModel)]="sel_tipoced">
+  <ion-select formControlName="tipo_documento" placeholder="Seleccionar" [(ngModel)]="sel_tipoced" value="1">
     <ion-select-option value="1">Cédula Ecuatoriana</ion-select-option>
     <ion-select-option value="2">Cédula Extranjera</ion-select-option>
   </ion-select>
@@ -36,8 +36,11 @@
     <ion-icon name="person" item-start></ion-icon>
     Número de Cédula
   </ion-label>
-  <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula" minlength="10"></ion-input>
+  <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula" pattern="[0-9]*" required title="mínimo 10 caracteres" maxlength="10"></ion-input>
   <div *ngIf="signup_form.get('cedula').errors && signup_form.get('cedula').dirty">
+    <div *ngIf="signup_form.get('cedula').errors.cedulaEcuatoriana">
+      La cédula no es válida.
+    </div>
   </div>
 </ion-item>
 
