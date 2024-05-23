@@ -11,6 +11,19 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-header collapse="fade" [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title color="light">
+      PVP de Producción
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary" (click)="filter()">
+        <ion-icon slot="icon-only" name="filter"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-header>
     <ion-toolbar class="toolbar-search">
@@ -19,9 +32,34 @@
   </ion-header>
 
   <div class="ion-padding">
-    <!-- Skeletons -->
-    <ng-container *ngIf="!content_loaded">
+    <!-- Formulario para ingresar datos de producción -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ingrese los datos de producción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Costo de Producción</ion-label>
+          <ion-input [(ngModel)]="costoProduccion" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Margen de Beneficio (%)</ion-label>
+          <ion-input [(ngModel)]="margenBeneficio" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Impuestos (%)</ion-label>
+          <ion-input [(ngModel)]="impuestos" type="number"></ion-input>
+        </ion-item>
+        <ion-button expand="full" (click)="calcularPVP()">Calcular PVP</ion-button>
+        <ion-item *ngIf="pvp !== null">
+          <ion-label>Precio de Venta al Público (PVP)</ion-label>
+          <ion-note slot="end">{{ pvp | currency }}</ion-note>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
+    <!-- Contenido adicional -->
+    <ng-container *ngIf="!content_loaded">
       <ion-list-header class="ion-list-header-small">
         <ion-label><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></ion-label>
         <ion-note color="tertiary" class="ion-note-small">
@@ -41,99 +79,12 @@
           <ion-skeleton-text slot="end" animated style="width: 15%"></ion-skeleton-text>
         </ion-item>
       </ion-list>
-
     </ng-container>
 
     <ng-container *ngIf="content_loaded">
-
-      <ion-list-header class="ion-list-header-small">
-        <ion-label color="tertiary">February, 2023</ion-label>
-      </ion-list-header>
-
-      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cafe-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Coffee</h3>
-            <p>Lorem Ipsum &middot; 09.04.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cash-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Salary</h3>
-            <p>Lorem Ipsum Inc. &middot; 06.03.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="home-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Rent</h3>
-            <p>Lorem Inc. &middot; 03.02.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-      </ion-list>
-
-      <hr class="hr-medium">
-
-      <ion-list-header class="ion-list-header-small">
-        <ion-label color="tertiary">January, 2023</ion-label>
-      </ion-list-header>
-
-      <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cafe-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Coffee</h3>
-            <p>Lorem Ipsum &middot; 09.04.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="cash-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Salary</h3>
-            <p>Lorem Ipsum Inc. &middot; 06.03.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-
-        <ion-item color="primary" button routerLink="detail" detail="false">
-          <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon color="tertiary" size="large" name="home-outline"></ion-icon>
-          </ion-avatar>
-
-          <ion-label>
-            <h3>Rent</h3>
-            <p>Lorem Inc. &middot; 03.02.2023</p>
-          </ion-label>
-          <ion-badge color="dark" slot="end">Detail</ion-badge>
-        </ion-item>
-      </ion-list>
-
+      <!-- Aquí puedes añadir más contenido cuando los datos estén cargados -->
     </ng-container>
-
   </div>
-
 </ion-content>
+
+
