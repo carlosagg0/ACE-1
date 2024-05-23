@@ -127,3 +127,12 @@ hr {
     margin: 32px 0;
   }
 }
+.avatar-center {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+ion-card-content {
+  text-align: center;
+}

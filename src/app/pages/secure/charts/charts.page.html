@@ -11,124 +11,87 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-header collapse="fade" [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title color="light">
+      PVP de Producción
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Insights</ion-title>
+  <ion-header>
+    <ion-toolbar class="toolbar-search">
+      <ion-searchbar color="dark" showCancelButton="focus" placeholder="Buscar ..."></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 
   <div class="ion-padding">
-    <ion-card color="primary" class="ion-no-margin ion-card-chart animate__animated animate__fadeIn">
-      <!-- Skeletons -->
-      <ng-container *ngIf="!content_loaded">
-        <ion-card-header>
-          <div>
-            <ion-card-title>
-              <ion-skeleton-text animated style="width: 60px"></ion-skeleton-text>
-            </ion-card-title>
-            <ion-card-subtitle>
-              <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
-            </ion-card-subtitle>
-          </div>
-          <ion-badge color="primary" mode="ios">
-            <ion-skeleton-text animated style="width: 50px"></ion-skeleton-text>
-          </ion-badge>
-        </ion-card-header>
+    <!-- Formulario para ingresar datos de producción -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ingrese los datos de producción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Registro de materias primas -->
+        <div *ngFor="let materiaPrima of materiasPrimas; let i = index">
+          <ion-item>
+            <ion-label position="floating">Nombre de Materia Prima</ion-label>
+            <ion-input [(ngModel)]="materiasPrimas[i].nombre" (ionChange)="calcularCostos()"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Costo</ion-label>
+            <ion-input [(ngModel)]="materiasPrimas[i].costo" type="number" (ionChange)="calcularCostos()"></ion-input>
+          </ion-item>
+        </div>
+        <ion-button expand="full" (click)="agregarMateriaPrima()">Agregar Materia Prima</ion-button>
 
-        <ion-skeleton-text animated style="width: calc(100% - 40px); margin: 16px auto 16px auto; min-height: 140px;">
-        </ion-skeleton-text>
-      </ng-container>
+        <!-- Otros costos -->
+        <ion-item>
+          <ion-label position="floating">Otros Costos</ion-label>
+          <ion-input [(ngModel)]="otrosCostos" type="number" (ionChange)="calcularCostos()"></ion-input>
+        </ion-item>
 
-      <!-- Chart -->
-      <ng-container *ngIf="content_loaded">
-        <ion-card-header>
-          <div>
-            <ion-card-title>$481.00</ion-card-title>
-            <ion-card-subtitle class="ion-margin-bottom">
-              <ion-text color="tertiary">Spent in total this year</ion-text>
-            </ion-card-subtitle>
-          </div>
-          <ion-badge color="secondary">
-            <ion-icon name="caret-up"></ion-icon>21.16%
-          </ion-badge>
-        </ion-card-header>
+        <!-- Costo de fábrica -->
+        <ion-item>
+          <ion-label position="floating">Costo de Fábrica</ion-label>
+          <ion-input [(ngModel)]="costoFabrica" type="number" (ionChange)="calcularCostos()"></ion-input>
+        </ion-item>
 
-        <canvas baseChart [data]="bar_chart_data" [options]="bar_chart_option" [type]="bar_chart_type"
-          class="ion-padding">
-        </canvas>
-      </ng-container>
+        <!-- Costo de distribución -->
+        <ion-item>
+          <ion-label position="floating">Costo de Distribución</ion-label>
+          <ion-input [(ngModel)]="costoDistribucion" type="number" (ionChange)="calcularCostos()"></ion-input>
+        </ion-item>
+
+        <!-- Márgenes y impuestos -->
+        <ion-item>
+          <ion-label position="floating">Margen de Beneficio (%)</ion-label>
+          <ion-input [(ngModel)]="margenBeneficio" type="number" (ionChange)="calcularCostos()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Impuestos (%)</ion-label>
+          <ion-input [(ngModel)]="impuestos" type="number" (ionChange)="calcularCostos()"></ion-input>
+        </ion-item>
+
+        <!-- Resultados -->
+        <ion-item *ngIf="costoProduccion !== null">
+          <ion-label>Costo de Producción</ion-label>
+          <ion-note slot="end">{{ costoProduccion | currency }}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="costoTotalFabrica !== null">
+          <ion-label>Costo Total de Fábrica</ion-label>
+          <ion-note slot="end">{{ costoTotalFabrica | currency }}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="costoTotalDistribucion !== null">
+          <ion-label>Costo Total de Distribución</ion-label>
+          <ion-note slot="end">{{ costoTotalDistribucion | currency }}</ion-note>
+        </ion-item>
+        <ion-item *ngIf="pvp !== null">
+          <ion-label>Precio de Venta al Público (PVP)</ion-label>
+          <ion-note slot="end">{{ pvp | currency }}</ion-note>
+        </ion-item>
+      </ion-card-content>
     </ion-card>
-
-    <hr class="hr-medium">
-
-    <ion-card color="primary" class="ion-no-margin ion-card-chart animate__animated animate__fadeIn">
-      <!-- Skeletons -->
-      <ng-container *ngIf="!content_loaded">
-        <ion-card-header>
-          <div>
-            <ion-card-title>
-              <ion-skeleton-text animated style="width: 60px"></ion-skeleton-text>
-            </ion-card-title>
-            <ion-card-subtitle>
-              <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
-            </ion-card-subtitle>
-          </div>
-          <ion-badge color="primary" mode="ios">
-            <ion-skeleton-text animated style="width: 50px"></ion-skeleton-text>
-          </ion-badge>
-        </ion-card-header>
-
-        <ion-skeleton-text animated style="width: calc(100% - 40px); margin: 16px auto 16px auto; min-height: 140px;">
-        </ion-skeleton-text>
-      </ng-container>
-
-      <!-- Chart -->
-      <ng-container *ngIf="content_loaded">
-        <canvas
-          class="ion-padding"
-          baseChart
-          [data]="barChartData"
-          [options]="barChartOptions"
-          [type]="barChartType"
-        >
-        </canvas>
-      </ng-container>
-    </ion-card>
-
-    <hr class="hr-medium">
-
-    <ion-card color="primary" class="ion-no-margin ion-card-chart animate__animated animate__fadeIn">
-      <!-- Skeletons -->
-      <ng-container *ngIf="!content_loaded">
-        <ion-card-header>
-          <div>
-            <ion-card-title>
-              <ion-skeleton-text animated style="width: 60px"></ion-skeleton-text>
-            </ion-card-title>
-            <ion-card-subtitle>
-              <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
-            </ion-card-subtitle>
-          </div>
-          <ion-badge color="primary" mode="ios">
-            <ion-skeleton-text animated style="width: 50px"></ion-skeleton-text>
-          </ion-badge>
-        </ion-card-header>
-
-        <ion-skeleton-text animated style="width: calc(100% - 40px); margin: 16px auto 16px auto; min-height: 140px;">
-        </ion-skeleton-text>
-      </ng-container>
-
-      <!-- Chart -->
-      <ng-container *ngIf="content_loaded">
-        <canvas baseChart class="chart"
-        [data]="polarAreaChartData"
-        [legend]="polarAreaLegend"
-        [type]="polarAreaChartType">
-        </canvas>
-      </ng-container>
-    </ion-card>
-
   </div>
-
 </ion-content>

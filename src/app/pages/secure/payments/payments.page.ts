@@ -34,21 +34,4 @@ export class PaymentsPage implements OnInit {
 
 }
 
- async filter() {
-
-    // Open filter modal
-    const modal = await this.modalController.create({
-      component: FilterPage,
-      swipeToClose: true,
-      presentingElement: this.routerOutlet.nativeEl
-    });
-  }
-
-  calcularPVP() {
-    if (this.costoProduccion && this.margenBeneficio && this.impuestos) {
-      const beneficio = this.costoProduccion * (this.margenBeneficio / 100);
-      const impuesto = this.costoProduccion * (this.impuestos / 100);
-      this.pvp = this.costoProduccion + beneficio + impuesto;
-    }
-  }
 }

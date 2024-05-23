@@ -10,82 +10,25 @@ import { HelperService } from 'src/app/services/helper/helper.service';
 })
 export class ChartsPage implements OnInit {
 
+  materiasPrimas: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
+  otrosCostos: number = 0;
+  costoFabrica: number = 0;
+  costoDistribucion: number = 0;
+  margenBeneficio: number = 0;
+  impuestos: number = 0;
+  costoProduccion: number | null = null;
+  costoTotalFabrica: number | null = null;
+  costoTotalDistribucion: number | null = null;
+  pvp: number | null = null;
+
+  agregarMateriaPrima() {
+    this.materiasPrimas.push({ nombre: '', costo: 0 });
+  }
+
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined
 
-  public bar_chart_option: ChartConfiguration['options'] = {
-    font: {
-      family: 'Inter'
-    },
-    animation: {
-      easing: 'easeInOutElastic',
-      delay: 25
-    },
-    responsive: true,
-    scales: {
-      x: {
-        grid: {
-          color: this.helperService.getColorVariable('medium')
-        },
-        ticks: {
-          color: this.helperService.getColorVariable('tertiary'),
-          font: {
-            family: 'Inter',
-            weight: '500'
-          }
-        }
-      },
-      y: {
-        position: 'right',
-        grid: {
-          color: this.helperService.getColorVariable('medium')
-        },
-        ticks: {
-          color: this.helperService.getColorVariable('tertiary'),
-          callback: function (value) {
-            return '$' + value;
-          }
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        backgroundColor: this.helperService.getColorVariable('dark'),
-        bodyColor: this.helperService.getColorVariable('medium'),
-        titleColor: this.helperService.getColorVariable('tertiary'),
-        titleFont: {
-          size: 14,
-          weight: 'normal'
-        },
-        bodyFont: {
-          size: 16,
-          weight: 'bold'
-        },
-        padding: 12,
-        boxWidth: 10,
-        boxHeight: 10,
-        boxPadding: 3,
-        usePointStyle: true,
-        callbacks: {
-          // Add currency format to tooltip
-          label: function (context) {
-            var label = context.dataset.label || '';
-
-            if (label) {
-              label += ': ';
-            }
-            if (context.parsed.y !== null) {
-              label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-            }
-            return label;
-          }
-        }
-      }
-    }
-  };
-
+ 
+      
   public bar_chart_data: ChartData<'bar'> = {
     labels: [],
     datasets: []
@@ -246,5 +189,20 @@ export class ChartsPage implements OnInit {
         pointStyle: 'circle',
       }
     ];
+  }
+  calcularCostos() {
+    // Calcular el costo de producción
+    this.costoProduccion = this.materiasPrimas.reduce((sum, item) => sum + item.costo, 0) + this.otrosCostos;
+
+    // Calcular el costo total de fábrica (producción + costo de fábrica)
+    this.costoTotalFabrica = this.costoProduccion + this.costoFabrica;
+
+    // Calcular el costo total de distribución (fábrica + distribución)
+    this.costoTotalDistribucion = this.costoTotalFabrica + this.costoDistribucion;
+
+    // Calcular el PVP (Precio de Venta al Público)
+    const beneficio = (this.margenBeneficio / 100) * this.costoTotalDistribucion;
+    const impuestos = (this.impuestos / 100) * (this.costoTotalDistribucion + beneficio);
+    this.pvp = this.costoTotalDistribucion + beneficio + impuestos;
   }
 }
