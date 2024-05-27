@@ -12,30 +12,15 @@ export class ChartsPage implements OnInit {
 
   materiasPrimas: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
   otrosCostos: number = 0;
-  costoFabrica: number = 0;
-  costoDistribucion: number = 0;
   margenBeneficio: number = 0;
   impuestos: number = 0;
   costoProduccion: number | null = null;
-  costoTotalFabrica: number | null = null;
-  costoTotalDistribucion: number | null = null;
+  costoFabrica: number | null = null;
+  costoDistribucion: number | null = null;
   pvp: number | null = null;
 
-  agregarMateriaPrima() {
-    this.materiasPrimas.push({ nombre: '', costo: 0 });
-  }
-
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined
-
- 
-      
-  public bar_chart_data: ChartData<'bar'> = {
-    labels: [],
-    datasets: []
-  };
-
-  public bar_chart_type: ChartType = 'bar';
-
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  
   public barChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
@@ -47,14 +32,13 @@ export class ChartsPage implements OnInit {
       delay: 25
     },
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {
         grid: {
-          color: this.helperService.getColorVariable('medium')
+          color: '#ccc' // Ajuste de color del grid
         },
         ticks: {
-          color: this.helperService.getColorVariable('tertiary'),
+          color: '#666',
           font: {
             family: 'Inter',
             weight: '500'
@@ -64,10 +48,10 @@ export class ChartsPage implements OnInit {
       y: {
         position: 'right',
         grid: {
-          color: this.helperService.getColorVariable('medium')
+          color: '#ccc'
         },
         ticks: {
-          color: this.helperService.getColorVariable('tertiary'),
+          color: '#666',
           callback: function (value) {
             return '$' + value;
           }
@@ -79,9 +63,9 @@ export class ChartsPage implements OnInit {
         display: false,
       },
       tooltip: {
-        backgroundColor: this.helperService.getColorVariable('dark'),
-        bodyColor: this.helperService.getColorVariable('medium'),
-        titleColor: this.helperService.getColorVariable('tertiary'),
+        backgroundColor: '#333',
+        bodyColor: '#666',
+        titleColor: '#fff',
         titleFont: {
           size: 14,
           weight: 'normal'
@@ -96,10 +80,8 @@ export class ChartsPage implements OnInit {
         boxPadding: 3,
         usePointStyle: true,
         callbacks: {
-          // Add currency format to tooltip
           label: function (context) {
             var label = context.dataset.label || '';
-
             if (label) {
               label += ': ';
             }
@@ -113,73 +95,81 @@ export class ChartsPage implements OnInit {
     }
   };
 
-  public barChartLabels: string[] = [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ];
-
+  public barChartLabels: string[] = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   public barChartType: ChartType = 'bar';
-
   public barChartData: ChartData<'bar'> = {
     labels: this.barChartLabels,
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
+      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
     ]
   };
 
-  // PolarArea
-  public polarAreaChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales' ];
-
+  public polarAreaChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
   public polarAreaChartData: ChartData<'polarArea'> = {
     labels: this.polarAreaChartLabels,
-    datasets: [ {
-      data: [ 300, 500, 100, 40, 120 ],
+    datasets: [{
+      data: [300, 500, 100, 40, 120],
       label: 'Series 1'
-    } ]
+    }]
   };
   public polarAreaLegend = true;
-
   public polarAreaChartType: ChartType = 'polarArea';
 
   content_loaded: boolean = false;
 
-  constructor(
-    private helperService: HelperService
-  ) { }
+  constructor(private helperService: HelperService) { }
 
   ngOnInit() {
-    // Create bar chart
     this.createBarChart();
   }
 
   ionViewDidEnter() {
-    // Fake timeout
     setTimeout(() => {
       this.content_loaded = true;
     }, 2000);
   }
 
-  // Create bar chart
+  agregarMateriaPrima() {
+    this.materiasPrimas.push({ nombre: '', costo: 0 });
+  }
+
+  ngDoCheck() {
+    this.calcularCostos();
+  }
+
+  calcularCostos() {
+    const costoMateriasPrimas = this.materiasPrimas.reduce((total, materia) => total + (materia.costo || 0), 0);
+    this.costoProduccion = costoMateriasPrimas + (this.otrosCostos || 0);
+    
+    // Suponiendo que el costo de fábrica es un 20% del costo de producción
+    this.costoFabrica = this.costoProduccion * 0.20;
+    
+    // Suponiendo que el costo de distribución es un 10% del costo de producción
+    this.costoDistribucion = this.costoProduccion * 0.10;
+
+    const costoTotal = this.costoProduccion + this.costoFabrica + this.costoDistribucion;
+    const beneficio = costoTotal * (this.margenBeneficio / 100);
+    const impuestosCalculados = (costoTotal + beneficio) * (this.impuestos / 100);
+    this.pvp = costoTotal + beneficio + impuestosCalculados;
+  }
+
   createBarChart() {
     let helperService = this.helperService;
-    // Random array of numbers
     let rand_numbers = [...Array(12)].map(e => Math.random() * 100 | 0);
 
-    // Set labels
-    this.bar_chart_data.labels = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    // Set datasets
-    this.bar_chart_data.datasets = [
+    this.barChartData.labels = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    this.barChartData.datasets = [
       {
         data: rand_numbers,
         backgroundColor: function (context) {
-
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
           if (!chartArea) {
-            // This case happens on initial chart load
             return null;
           }
 
-          // Create gradient
           return helperService.createGradientChart(ctx, 'tertiary', 'tertiary');
         },
         barThickness: 10,
@@ -189,20 +179,5 @@ export class ChartsPage implements OnInit {
         pointStyle: 'circle',
       }
     ];
-  }
-  calcularCostos() {
-    // Calcular el costo de producción
-    this.costoProduccion = this.materiasPrimas.reduce((sum, item) => sum + item.costo, 0) + this.otrosCostos;
-
-    // Calcular el costo total de fábrica (producción + costo de fábrica)
-    this.costoTotalFabrica = this.costoProduccion + this.costoFabrica;
-
-    // Calcular el costo total de distribución (fábrica + distribución)
-    this.costoTotalDistribucion = this.costoTotalFabrica + this.costoDistribucion;
-
-    // Calcular el PVP (Precio de Venta al Público)
-    const beneficio = (this.margenBeneficio / 100) * this.costoTotalDistribucion;
-    const impuestos = (this.impuestos / 100) * (this.costoTotalDistribucion + beneficio);
-    this.pvp = this.costoTotalDistribucion + beneficio + impuestos;
   }
 }

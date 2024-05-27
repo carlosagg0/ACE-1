@@ -8,30 +8,44 @@ import { FilterPage } from './filter/filter.page';
   styleUrls: ['./payments.page.scss'],
 })
 export class PaymentsPage implements OnInit {
-  costoProduccion: number;
+  materiaPrima: number;
+  costoFabricacion: number;
+  costoDistribucion: number;
   margenBeneficio: number;
   impuestos: number;
+  otrosGastos: number;
   pvp: number = null;
   content_loaded: boolean = false;
  
 
-  constructor(
-    private routerOutlet: IonRouterOutlet,
-    private modalController: ModalController,
-    
-  )
-  
-   { 
-     // Simula la carga del contenido
-     setTimeout(() => {
+  constructor() {
+    // Simula la carga del contenido
+    setTimeout(() => {
       this.content_loaded = true;
     }, 2000);
-    
   }
 
   ngOnInit() {
+    this.materiaPrima = 0;
+    this.costoFabricacion = 0;
+    this.costoDistribucion = 0;
+    this.margenBeneficio = 0;
+    this.impuestos = 0;
+    this.otrosGastos = 0;
+  }
 
+  ngDoCheck() {
+    this.calcularPVP();
+  }
 
-}
+  calcularPVP() {
+    const costoTotalProduccion = this.materiaPrima + this.costoFabricacion + this.costoDistribucion + this.otrosGastos;
+    const beneficio = costoTotalProduccion * (this.margenBeneficio / 100);
+    const impuestosCalculados = (costoTotalProduccion + beneficio) * (this.impuestos / 100);
+    this.pvp = costoTotalProduccion + beneficio + impuestosCalculados;
+  }
 
+  filter() {
+    console.log('Filter button clicked');
+  }
 }

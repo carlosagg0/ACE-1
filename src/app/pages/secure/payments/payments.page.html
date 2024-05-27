@@ -39,8 +39,16 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-label position="floating">Costo de Producción</ion-label>
-          <ion-input [(ngModel)]="costoProduccion" type="number"></ion-input>
+          <ion-label position="floating">Materia Prima</ion-label>
+          <ion-input [(ngModel)]="materiaPrima" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Costo de Fabricación</ion-label>
+          <ion-input [(ngModel)]="costoFabricacion" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Costo de Distribución</ion-label>
+          <ion-input [(ngModel)]="costoDistribucion" type="number"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Margen de Beneficio (%)</ion-label>
@@ -50,7 +58,10 @@
           <ion-label position="floating">Impuestos (%)</ion-label>
           <ion-input [(ngModel)]="impuestos" type="number"></ion-input>
         </ion-item>
-        <ion-button expand="full" (click)="calcularPVP()">Calcular PVP</ion-button>
+        <ion-item>
+          <ion-label position="floating">Otros Gastos</ion-label>
+          <ion-input [(ngModel)]="otrosGastos" type="number"></ion-input>
+        </ion-item>
         <ion-item *ngIf="pvp !== null">
           <ion-label>Precio de Venta al Público (PVP)</ion-label>
           <ion-note slot="end">{{ pvp | currency }}</ion-note>
@@ -86,5 +97,3 @@
     </ng-container>
   </div>
 </ion-content>
-
-

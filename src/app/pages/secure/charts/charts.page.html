@@ -52,18 +52,6 @@
           <ion-input [(ngModel)]="otrosCostos" type="number" (ionChange)="calcularCostos()"></ion-input>
         </ion-item>
 
-        <!-- Costo de fábrica -->
-        <ion-item>
-          <ion-label position="floating">Costo de Fábrica</ion-label>
-          <ion-input [(ngModel)]="costoFabrica" type="number" (ionChange)="calcularCostos()"></ion-input>
-        </ion-item>
-
-        <!-- Costo de distribución -->
-        <ion-item>
-          <ion-label position="floating">Costo de Distribución</ion-label>
-          <ion-input [(ngModel)]="costoDistribucion" type="number" (ionChange)="calcularCostos()"></ion-input>
-        </ion-item>
-
         <!-- Márgenes y impuestos -->
         <ion-item>
           <ion-label position="floating">Margen de Beneficio (%)</ion-label>
@@ -79,13 +67,13 @@
           <ion-label>Costo de Producción</ion-label>
           <ion-note slot="end">{{ costoProduccion | currency }}</ion-note>
         </ion-item>
-        <ion-item *ngIf="costoTotalFabrica !== null">
-          <ion-label>Costo Total de Fábrica</ion-label>
-          <ion-note slot="end">{{ costoTotalFabrica | currency }}</ion-note>
+        <ion-item *ngIf="costoFabrica !== null">
+          <ion-label>Costo de Fábrica</ion-label>
+          <ion-note slot="end">{{ costoFabrica | currency }}</ion-note>
         </ion-item>
-        <ion-item *ngIf="costoTotalDistribucion !== null">
-          <ion-label>Costo Total de Distribución</ion-label>
-          <ion-note slot="end">{{ costoTotalDistribucion | currency }}</ion-note>
+        <ion-item *ngIf="costoDistribucion !== null">
+          <ion-label>Costo de Distribución</ion-label>
+          <ion-note slot="end">{{ costoDistribucion | currency }}</ion-note>
         </ion-item>
         <ion-item *ngIf="pvp !== null">
           <ion-label>Precio de Venta al Público (PVP)</ion-label>
