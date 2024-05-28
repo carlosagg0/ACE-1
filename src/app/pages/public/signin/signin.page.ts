@@ -15,6 +15,7 @@ export class SigninPage implements OnInit {
   txt_cedula:string="";
   txt_clave:string="";
   clave:string="";
+  claveType: string = 'password';
 
 
   current_year: number = new Date().getFullYear();
@@ -102,5 +103,8 @@ export class SigninPage implements OnInit {
     
     
 
+  }
+  togglePasswordVisibility(show: boolean): void {
+    this.claveType = show ? 'text' : 'password';
   }
 }

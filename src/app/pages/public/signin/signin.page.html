@@ -23,20 +23,36 @@
 
     <!-- Login form -->
     <form class="form-default" [formGroup]="signin_form" (submit)="login()">
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="medium" class="animate__animated animate__fadeInUp">
         <ion-label position="floating">
           <ion-icon name="card" item-start></ion-icon>
           Cédula
         </ion-label>
-        <ion-input color="primary" type="text" formControlName="cedula" [(ngModel)]="txt_cedula"></ion-input>
+        <ion-input color="dark" type="text" formControlName="cedula" [(ngModel)]="txt_cedula"></ion-input>
       </ion-item>
 
-      <ion-item color="dark" class="animate__animated animate__fadeInUp">
+      <ion-item color="medium" class="animate_animated animate_fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock-closed-outline"></ion-icon>
           Contraseña
         </ion-label>
-        <ion-input color="primary" formControlName="clave" type="password" placeholder="Your password" [(ngModel)]="txt_clave"></ion-input>
+        <ion-input
+          required
+          color="dark"
+          formControlName="clave"
+          [type]="claveType"
+          placeholder="Ingrese su contraseña, minimo 8 digitos"
+          [(ngModel)]="txt_clave">
+        </ion-input>
+        <ion-button
+          fill="clear"
+          size="small"
+          slot="end"
+          (mousedown)="togglePasswordVisibility(true)"
+          (mouseup)="togglePasswordVisibility(false)"
+          (mouseleave)="togglePasswordVisibility(false)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
       </ion-item>
 
       <ion-button class="ion-margin-top" type="submit" expand="block" size="large" color="danger">

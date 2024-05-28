@@ -42,6 +42,8 @@ export class SignupPage implements OnInit {
   txt_clave: string = "";
   txt_telefono: string = "";
   sel_tipoced: string="";
+  claveType: string = 'password';
+  confClaveType: string = 'password';
 
   current_year: number = new Date().getFullYear();
 
@@ -247,6 +249,13 @@ export class SignupPage implements OnInit {
     });
     
   }
-  
+  togglePasswordVisibility(show: boolean): void {
+    this.claveType = show ? 'text' : 'password';
+  }
+
+  toggleConfirmPasswordVisibility(show: boolean): void {
+    this.confClaveType = show ? 'text' : 'password';
+  }
   
   }
+  

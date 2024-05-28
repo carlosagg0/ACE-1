@@ -12,10 +12,10 @@
 
     <div class="logo-container">
       <h1 class="animate_animated animate_fadeInUp">
-        <ion-text color="secundary">Registro</ion-text>
+        <ion-text color="secundary">Regístrate</ion-text>
       </h1>
       <p class="animate_animated animate_fadeInUp">
-        <ion-text color="secondary">Cree su cuenta gratis</ion-text>
+        <ion-text color="secondary">Lleva tu negocio al siguiente nivel</ion-text>
       </p>
     </div>
 
@@ -38,7 +38,7 @@
   </ion-label>
   <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula" pattern="[0-9]*" required title="mínimo 10 caracteres" maxlength="10"></ion-input>
   <div *ngIf="signup_form.get('cedula').errors && signup_form.get('cedula').dirty">
-    <div *ngIf="signup_form.get('cedula').errors.cedulaEcuatoriana">
+    <div style="color: #797773;" *ngIf="signup_form.get('cedula').errors.cedulaEcuatoriana">
       La cédula no es válida.
     </div>
   </div>
@@ -315,17 +315,49 @@
           <ion-icon name="lock-closed-outline"></ion-icon>
           Contraseña
         </ion-label>
-        <ion-input required color="dark" formControlName="clave" type="password" placeholder="Ingrese su contraseña, minimo 8 digitos" [(ngModel)]="txt_clave"></ion-input>
+        <ion-input
+          required
+          color="dark"
+          formControlName="clave"
+          [type]="claveType"
+          placeholder="Ingrese su contraseña, minimo 8 digitos"
+          [(ngModel)]="txt_clave">
+        </ion-input>
+        <ion-button
+          fill="clear"
+          size="small"
+          slot="end"
+          (mousedown)="togglePasswordVisibility(true)"
+          (mouseup)="togglePasswordVisibility(false)"
+          (mouseleave)="togglePasswordVisibility(false)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
       </ion-item>
-
-       <ion-item color="medium" class="animate_animated animate_fadeInUp">
-        <ion-label position="floating">         
+      
+      <ion-item color="medium" class="animate_animated animate_fadeInUp">
+        <ion-label position="floating">
           <ion-icon name="lock-closed-outline"></ion-icon>
           Confirmar contraseña
         </ion-label>
- 
-        <ion-input required color="dark" formControlName="conf_clave" type="password" placeholder="Confirmar contraseña"></ion-input>
+        <ion-input
+          required
+          color="dark"
+          formControlName="conf_clave"
+          [type]="confClaveType"
+          placeholder="Confirmar contraseña">
+        </ion-input>
+        <ion-button
+          fill="clear"
+          size="small"
+          slot="end"
+          (mousedown)="toggleConfirmPasswordVisibility(true)"
+          (mouseup)="toggleConfirmPasswordVisibility(false)"
+          (mouseleave)="toggleConfirmPasswordVisibility(false)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
       </ion-item>
+      
+      
     <ion-button class="ion-margin-top" type="submit" value="btn_reg" expand="block" size="large" color="danger" >
         Regístrarse
       </ion-button> 
