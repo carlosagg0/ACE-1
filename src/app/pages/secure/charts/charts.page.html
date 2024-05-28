@@ -1,8 +1,6 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title color="light">
-      Charts
-    </ion-title>
+    <ion-title color="light">Costos</ion-title>
     <ion-buttons slot="primary">
       <ion-button color="secondary" routerLink="/settings">
         <ion-icon slot="icon-only" name="cog"></ion-icon>
@@ -13,9 +11,7 @@
 
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title color="light">
-      PVP de Producción
-    </ion-title>
+    <ion-title color="light">Costos de Producción</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -28,7 +24,7 @@
 
   <div class="ion-padding">
     <!-- Formulario para ingresar datos de producción -->
-    <ion-card>
+    <ion-card color="medium">
       <ion-card-header>
         <ion-card-title>Ingrese los datos de producción</ion-card-title>
       </ion-card-header>
@@ -44,13 +40,20 @@
             <ion-input [(ngModel)]="materiasPrimas[i].costo" type="number" (ionChange)="calcularCostos()"></ion-input>
           </ion-item>
         </div>
-        <ion-button expand="full" (click)="agregarMateriaPrima()">Agregar Materia Prima</ion-button>
+        <ion-button color="tertiary" expand="full" (click)="agregarMateriaPrima()">Agregar Materia Prima</ion-button>
 
         <!-- Otros costos -->
-        <ion-item>
-          <ion-label position="floating">Otros Costos</ion-label>
-          <ion-input [(ngModel)]="otrosCostos" type="number" (ionChange)="calcularCostos()"></ion-input>
-        </ion-item>
+        <div *ngFor="let otrosGasto of otrosGastos; let i = index">
+          <ion-item>
+            <ion-label position="floating">Nombre del Gasto</ion-label>
+            <ion-input [(ngModel)]="otrosGastos[i].nombre" (ionChange)="calcularCostos()"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Otros Gastos</ion-label>
+            <ion-input [(ngModel)]="otrosGastos[i].gasto" type="number" (ionChange)="calcularCostos()"></ion-input>
+          </ion-item>
+        </div>
+        <ion-button color="tertiary" expand="full" (click)="agregarOtrosGastos()">Agregar Otro Gasto</ion-button>
 
         <!-- Márgenes y impuestos -->
         <ion-item>
@@ -63,21 +66,21 @@
         </ion-item>
 
         <!-- Resultados -->
-        <ion-item *ngIf="costoProduccion !== null">
+        <ion-item color="medium" *ngIf="costoProduccion !== null">
           <ion-label>Costo de Producción</ion-label>
-          <ion-note slot="end">{{ costoProduccion | currency }}</ion-note>
+          <ion-badge  slot="end">{{ costoProduccion | currency }}</ion-badge>
         </ion-item>
-        <ion-item *ngIf="costoFabrica !== null">
+        <ion-item color="medium" *ngIf="costoFabrica !== null">
           <ion-label>Costo de Fábrica</ion-label>
-          <ion-note slot="end">{{ costoFabrica | currency }}</ion-note>
+          <ion-badge  slot="end">{{ costoFabrica | currency }}</ion-badge>
         </ion-item>
-        <ion-item *ngIf="costoDistribucion !== null">
+        <ion-item color="medium" *ngIf="costoDistribucion !== null">
           <ion-label>Costo de Distribución</ion-label>
-          <ion-note slot="end">{{ costoDistribucion | currency }}</ion-note>
+          <ion-badge  slot="end">{{ costoDistribucion | currency }}</ion-badge>
         </ion-item>
-        <ion-item *ngIf="pvp !== null">
-          <ion-label>Precio de Venta al Público (PVP)</ion-label>
-          <ion-note slot="end">{{ pvp | currency }}</ion-note>
+        <ion-item color="medium" *ngIf="pvp !== null">
+          <ion-label>PVP</ion-label>
+          <ion-badge color="success" slot="end">{{ pvp | currency }}</ion-badge>
         </ion-item>
       </ion-card-content>
     </ion-card>

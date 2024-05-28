@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartEvent, ChartOptions, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { HelperService } from 'src/app/services/helper/helper.service';
 
@@ -11,7 +11,7 @@ import { HelperService } from 'src/app/services/helper/helper.service';
 export class ChartsPage implements OnInit {
 
   materiasPrimas: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
-  otrosCostos: number = 0;
+  otrosGastos: { nombre: string, gasto: number }[] = [{ nombre: '', gasto: 0 }];
   margenBeneficio: number = 0;
   impuestos: number = 0;
   costoProduccion: number | null = null;
@@ -20,7 +20,7 @@ export class ChartsPage implements OnInit {
   pvp: number | null = null;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-  
+
   public barChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
@@ -134,17 +134,22 @@ export class ChartsPage implements OnInit {
     this.materiasPrimas.push({ nombre: '', costo: 0 });
   }
 
+  agregarOtrosGastos() {
+    this.otrosGastos.push({ nombre: '', gasto: 0 });
+  }
+
   ngDoCheck() {
     this.calcularCostos();
   }
 
   calcularCostos() {
     const costoMateriasPrimas = this.materiasPrimas.reduce((total, materia) => total + (materia.costo || 0), 0);
-    this.costoProduccion = costoMateriasPrimas + (this.otrosCostos || 0);
-    
+    const totalOtrosGastos = this.otrosGastos.reduce((total, gasto) => total + (gasto.gasto || 0), 0);
+    this.costoProduccion = costoMateriasPrimas + totalOtrosGastos;
+
     // Suponiendo que el costo de fábrica es un 20% del costo de producción
     this.costoFabrica = this.costoProduccion * 0.20;
-    
+
     // Suponiendo que el costo de distribución es un 10% del costo de producción
     this.costoDistribucion = this.costoProduccion * 0.10;
 
