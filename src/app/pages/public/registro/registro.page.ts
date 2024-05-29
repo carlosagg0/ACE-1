@@ -5,11 +5,11 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-registro',
+  templateUrl: './registro.page.html',
+  styleUrls: ['./registro.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class RegistroPage implements OnInit {
   codigo: string = '';
   nacionalidades: any = [];
   ciudades: any = [];
@@ -47,7 +47,7 @@ export class SignupPage implements OnInit {
 
   current_year: number = new Date().getFullYear();
 
-  signup_form: FormGroup;
+  registro_form: FormGroup;
   submit_attempt: boolean = false;
 
   constructor(
@@ -65,7 +65,7 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {
     // Setup form
-    this.signup_form = this.formBuilder.group({
+    this.registro_form = this.formBuilder.group({
       tipo_documento: ['', Validators.required], // Agregamos el campo de tipo de documento
       cedula_extranjera: ['', Validators.compose([Validators.minLength(10), Validators.required])],
       cedula: ['', Validators.compose([Validators.minLength(10), Validators.required, this.cedulaEcuatorianaValidator()])],
@@ -106,27 +106,27 @@ export class SignupPage implements OnInit {
   async registrar() {
 
     //SI LOS CAMPOS OBLIGATIRIOS ESTAN VACIOS
-    if (this.signup_form.value.correo == '' ||this.signup_form.value.tipo_documento == '' || this.signup_form.value.nombres == '' ||this.signup_form.value.apellidos == '' || this.signup_form.value.fecha_nacimiento == '' ||this.signup_form.value.ecivil == '' ||this.signup_form.value.etnia == '' ||this.signup_form.value.discapacidad == '' ||this.signup_form.value.ocupacion == '' ||this.signup_form.value.nacionalidad == '' ||this.signup_form.value.ciudad == '' ||this.signup_form.value.provincia == '' ||this.signup_form.value.parroquia == '' ||this.signup_form.value.parroquia == '' ||this.signup_form.value.barrio == '' ||this.signup_form.value.calle1 == '' ||this.signup_form.value.calle2 == '' ||this.signup_form.value.neducacion == '' ||this.signup_form.value.genero == '' ||  this.signup_form.value.cedula == '' ||this.signup_form.value.correo == '' ||this.signup_form.value.telefono == '' ||this.signup_form.value.clave == '' || this.signup_form.value.conf_clave == '') {
-      this.signup_form.value.btn_reg =
+    if (this.registro_form.value.correo == '' ||this.registro_form.value.tipo_documento == '' || this.registro_form.value.nombres == '' ||this.registro_form.value.apellidos == '' || this.registro_form.value.fecha_nacimiento == '' ||this.registro_form.value.ecivil == '' ||this.registro_form.value.etnia == '' ||this.registro_form.value.discapacidad == '' ||this.registro_form.value.ocupacion == '' ||this.registro_form.value.nacionalidad == '' ||this.registro_form.value.ciudad == '' ||this.registro_form.value.provincia == '' ||this.registro_form.value.parroquia == '' ||this.registro_form.value.parroquia == '' ||this.registro_form.value.barrio == '' ||this.registro_form.value.calle1 == '' ||this.registro_form.value.calle2 == '' ||this.registro_form.value.neducacion == '' ||this.registro_form.value.genero == '' ||  this.registro_form.value.cedula == '' ||this.registro_form.value.correo == '' ||this.registro_form.value.telefono == '' ||this.registro_form.value.clave == '' || this.registro_form.value.conf_clave == '') {
+      this.registro_form.value.btn_reg =
       this.authService.showToast('Todos los campos son obligatorios y no pueden estar vacíos');
     }
     
-    if (this.signup_form.value.clave !== this.signup_form.value.conf_clave) {
+    if (this.registro_form.value.clave !== this.registro_form.value.conf_clave) {
       this.authService.showToast('Las contraseñas no coinciden');
       return;
     }
 
-    if (!this.validateEmail(this.signup_form.value.correo)) {
+    if (!this.validateEmail(this.registro_form.value.correo)) {
       this.authService.showToast('El correo electrónico no es válido');
       return;
     }
 
-    if (!this.validatePhoneNumber(this.signup_form.value.telefono)) {
+    if (!this.validatePhoneNumber(this.registro_form.value.telefono)) {
       this.authService.showToast('El número de teléfono no es válido');
       return;
     }
     
-    if (this.signup_form.get('cedula').errors && this.signup_form.get('cedula').errors.cedulaEcuatoriana) {
+    if (this.registro_form.get('cedula').errors && this.registro_form.get('cedula').errors.cedulaEcuatoriana) {
       this.authService.showToast('La cedula no es válida');
       return;
     }
@@ -167,7 +167,7 @@ export class SignupPage implements OnInit {
     this.authService.postData(datos).subscribe((res: any) => {
       if (res.estado == true) {
         this.mostrarMensajeRegistroExitoso();
-        this.router.navigate(['/signin']); // Redirecciona al inicio de sesión
+        this.router.navigate(['/login']); // Redirecciona al inicio de sesión
       } else {
         this.authService.showToast(res.mensaje);
       }

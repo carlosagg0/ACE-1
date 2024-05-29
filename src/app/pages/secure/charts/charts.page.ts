@@ -18,6 +18,7 @@ export class ChartsPage implements OnInit {
   costoFabrica: number | null = null;
   costoDistribucion: number | null = null;
   pvp: number | null = null;
+  txt_producto: string = '';
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -139,10 +140,10 @@ export class ChartsPage implements OnInit {
   }
 
   ngDoCheck() {
-    this.calcularCostos();
+    this.calcular();
   }
 
-  calcularCostos() {
+  calcular() {
     const costoMateriasPrimas = this.materiasPrimas.reduce((total, materia) => total + (materia.costo || 0), 0);
     const totalOtrosGastos = this.otrosGastos.reduce((total, gasto) => total + (gasto.gasto || 0), 0);
     this.costoProduccion = costoMateriasPrimas + totalOtrosGastos;

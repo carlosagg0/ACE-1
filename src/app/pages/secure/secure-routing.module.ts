@@ -11,11 +11,11 @@ const routes: Routes = [
     loadChildren: () => import('./styleguide/styleguide.module').then(m => m.StyleguidePageModule)
   },
   {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule)
+    path: 'ajustes',
+    loadChildren: () => import('./ajustes/ajustes.module').then(m => m.AjustesPageModule)
   },
   {
-    path: 'settings/profile/edit',
+    path: 'ajustes/profile/edit',
     loadChildren: () => import('./profile/edit/edit.module').then(m => m.EditPageModule)
   },
   {

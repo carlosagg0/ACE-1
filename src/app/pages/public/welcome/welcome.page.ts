@@ -57,7 +57,7 @@ export class WelcomePage implements AfterContentChecked {
   async getStarted() {
 
     // Navigate to /home
-    this.router.navigateByUrl('/signin');
+    this.router.navigateByUrl('/login');
   }
 
 }

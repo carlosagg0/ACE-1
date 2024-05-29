@@ -6,11 +6,11 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
+  selector: 'app-ajustes',
+  templateUrl: './ajustes.page.html',
+  styleUrls: ['./ajustes.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class AjustesPage implements OnInit {
   nombre: string="";
   correo: string="";
 

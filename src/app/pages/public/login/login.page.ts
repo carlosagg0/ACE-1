@@ -6,11 +6,11 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.page.html',
-  styleUrls: ['./signin.page.scss'],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
-export class SigninPage implements OnInit {
+export class LoginPage implements OnInit {
   txt_usuario:string="";
   txt_cedula:string="";
   txt_clave:string="";
@@ -20,7 +20,7 @@ export class SigninPage implements OnInit {
 
   current_year: number = new Date().getFullYear();
 
-  signin_form: FormGroup;
+  login_form: FormGroup;
   submit_attempt: boolean = false;
 
   constructor(
@@ -35,7 +35,7 @@ export class SigninPage implements OnInit {
     
 
     // Setup form
-    this.signin_form = this.formBuilder.group({
+    this.login_form = this.formBuilder.group({
       cedula: ['', Validators.compose([Validators.minLength(10), Validators.required])],
       clave: ['', Validators.compose([Validators.minLength(4), Validators.required])]
     });
@@ -48,7 +48,7 @@ export class SigninPage implements OnInit {
     this.submit_attempt = true;
 
     // If email or password empty
-    if (this.signin_form.value.txt_cedula == '' || this.signin_form.value.txt_clave == '') {
+    if (this.login_form.value.txt_cedula == '' || this.login_form.value.txt_clave == '') {
       this.toastService.presentToast('Error', 'Please input email and password', 'top', 'danger', 2000);
 
     } else {
@@ -56,7 +56,7 @@ export class SigninPage implements OnInit {
       // Proceed with loading overlay
       const loading = await this.loadingController.create({
         cssClass: 'default-loading',
-        message: '<p>Signing in...</p><span>Please be patient.</span>',
+        message: '<p>Loging in...</p><span>Please be patient.</span>',
         spinner: 'crescent'
       });
       await loading.present();
@@ -79,7 +79,7 @@ export class SigninPage implements OnInit {
       clave:this.txt_clave
     }
     this.authService.postData(datos).subscribe((res:any)=>{
-      if (this.signin_form.value.cedula == '' || this.signin_form.value.clave == '') {
+      if (this.login_form.value.cedula == '' || this.login_form.value.clave == '') {
         this.toastService.presentToast('Error', 'Ingrese su cédula y contraseña', 'top', 'danger', 2000);
       }
     if(res.estado==true)

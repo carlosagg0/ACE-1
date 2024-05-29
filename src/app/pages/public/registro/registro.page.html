@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button color="light" text="Inicio de sesion" defaultHref="/signin"></ion-back-button>
+      <ion-back-button color="light" text="Inicio de sesion" defaultHref="/login"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <form class="form-default" [formGroup]="signup_form" (submit)="registrar()">
+    <form class="form-default" [formGroup]="registro_form" (submit)="registrar()">
      <ion-item color="medium" class="animate_animated animate_fadeInUp">
   <ion-label >
     <ion-icon name="card" item-start></ion-icon>
@@ -37,8 +37,8 @@
     Número de Cédula
   </ion-label>
   <ion-input formControlName="cedula" type="text" [(ngModel)]="txt_cedula" pattern="[0-9]*" required title="mínimo 10 caracteres" maxlength="10"></ion-input>
-  <div *ngIf="signup_form.get('cedula').errors && signup_form.get('cedula').dirty">
-    <div style="color: #797773;" *ngIf="signup_form.get('cedula').errors.cedulaEcuatoriana">
+  <div *ngIf="registro_form.get('cedula').errors && registro_form.get('cedula').dirty">
+    <div style="color: #797773;" *ngIf="registro_form.get('cedula').errors.cedulaEcuatoriana">
       La cédula no es válida.
     </div>
   </div>
@@ -50,7 +50,7 @@
     Número de Documento Extranjero
   </ion-label>
   <ion-input formControlName="2" type="text" [(ngModel)]="txt_cedula"></ion-input>
-  <div *ngIf="signup_form.get('2').errors && signup_form.get('2').dirty">
+  <div *ngIf="registro_form.get('2').errors && registro_form.get('2').dirty">
   </div>
 </ion-item>
 

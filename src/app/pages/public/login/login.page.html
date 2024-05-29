@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-buttons slot="end">
-      <ion-button color="light" routerLink="/signup">
+      <ion-button color="light" routerLink="/registro">
         Registrarse
       </ion-button>
     </ion-buttons>
@@ -22,7 +22,7 @@
     </div>
 
     <!-- Login form -->
-    <form class="form-default" [formGroup]="signin_form" (submit)="login()">
+    <form class="form-default" [formGroup]="login_form" (submit)="login()">
       <ion-item color="medium" class="animate__animated animate__fadeInUp">
         <ion-label position="floating">
           <ion-icon name="card" item-start></ion-icon>
@@ -59,7 +59,7 @@
         INICIAR SESIÓN
       </ion-button>
 
-      <ion-button color="Secundary" fill="clear" expand="block" class="ion-button-small ion-margin-top-medium" routerLink="/password-reset">
+      <ion-button color="Secundary" fill="clear" expand="block" class="ion-button-small ion-margin-top-medium" routerLink="/recuperer_c">
         Olvide mi contraseña?
       </ion-button>
     </form>

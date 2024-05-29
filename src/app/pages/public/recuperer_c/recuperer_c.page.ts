@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-password-reset',
-  templateUrl: './password-reset.page.html',
-  styleUrls: ['./password-reset.page.scss'],
+  selector: 'app-recuperer_c',
+  templateUrl: './recuperer_c.page.html',
+  styleUrls: ['./recuperer_c.page.scss'],
 })
 export class PasswordResetPage implements OnInit {
   emeil: string="";

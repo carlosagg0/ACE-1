@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   // Sign in
-  async signIn(email: string, password: string) {
+  async login(email: string, password: string) {
     let sample_user = {
       email: email,
       password: password
@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   // Sign up
-  async signUp(email: string, password: string) {
+  async registro(email: string, password: string) {
     let sample_user = {
       email: email,
       password: password
@@ -67,7 +67,7 @@ export class AuthService {
 
   // Sign out
   async signOut() {
-    this.router.navigateByUrl('/signin');
+    this.router.navigateByUrl('/login');
   }
 
   private async processQueue() {

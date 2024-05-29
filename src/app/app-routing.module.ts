@@ -20,18 +20,18 @@ const routes: Routes = [
     // canActivate: [PublicGuard] // Prevent for signed in users
   },
   {
-    path: 'signin',
-    loadChildren: () => import('./pages/public/signin/signin.module').then(m => m.SigninPageModule),
+    path: 'login',
+    loadChildren: () => import('./pages/public/login/login.module').then(m => m.LoginPageModule),
     // canActivate: [PublicGuard] // Prevent for signed in users
   },
   {
-    path: 'signup',
-    loadChildren: () => import('./pages/public/signup/signup.module').then(m => m.SignupPageModule),
+    path: 'registro',
+    loadChildren: () => import('./pages/public/registro/registro.module').then(m => m.RegistroPageModule),
     // canActivate: [PublicGuard] // Prevent for signed in users
   },
   {
-    path: 'password-reset',
-    loadChildren: () => import('./pages/public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule),
+    path: 'recuperer_c',
+    loadChildren: () => import('./pages/public/recuperer_c/recuperer_c.module').then( m => m.PasswordResetPageModule),
     // canActivate: [PublicGuard] // Prevent for signed in users
   },
 ];
