@@ -148,16 +148,30 @@ export class ChartsPage implements OnInit {
     const totalOtrosGastos = this.otrosGastos.reduce((total, gasto) => total + (gasto.gasto || 0), 0);
     this.costoProduccion = costoMateriasPrimas + totalOtrosGastos;
 
-    // Suponiendo que el costo de fábrica es un 20% del costo de producción
-    this.costoFabrica = this.costoProduccion * 0.20;
+    console.log('Costo de materias primas:', costoMateriasPrimas);
+    console.log('Total de otros gastos:', totalOtrosGastos);
+    console.log('Costo de producción:', this.costoProduccion);
 
-    // Suponiendo que el costo de distribución es un 10% del costo de producción
-    this.costoDistribucion = this.costoProduccion * 0.10;
+    const beneficio = this.costoProduccion * (this.margenBeneficio / 100);
+    const impuestosCalculados = this.costoProduccion * (this.impuestos / 100);
+
+    this.costoFabrica = this.costoProduccion * (this.margenBeneficio / 100 + 1); // Suponiendo que el costo de fábrica es un porcentaje del margen de beneficio
+    this.costoDistribucion = this.costoFabrica * (this.impuestos / 100 + 1); // Suponiendo que el costo de distribución es un porcentaje del impuesto
+
+    console.log('Costo de fábrica:', this.costoFabrica);
+    console.log('Costo de distribución:', this.costoDistribucion);
 
     const costoTotal = this.costoProduccion + this.costoFabrica + this.costoDistribucion;
-    const beneficio = costoTotal * (this.margenBeneficio / 100);
-    const impuestosCalculados = (costoTotal + beneficio) * (this.impuestos / 100);
-    this.pvp = costoTotal + beneficio + impuestosCalculados;
+    console.log('Costo total:', costoTotal);
+
+    const pvpBeneficio = costoTotal * (this.margenBeneficio / 100);
+    console.log('Beneficio:', pvpBeneficio);
+
+    const pvpImpuestos = (costoTotal + pvpBeneficio) * (this.impuestos / 100);
+    console.log('Impuestos calculados:', pvpImpuestos);
+
+    this.pvp = this.costoDistribucion * (this.impuestos / 100 + 1);
+    console.log('PVP:', this.pvp);
   }
 
   createBarChart() {
