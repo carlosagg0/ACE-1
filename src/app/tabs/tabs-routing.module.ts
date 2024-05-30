@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/secure/charts/charts.module').then(m => m.ChartsPageModule)
       },
       {
+        path: 'listacostos',
+        loadChildren: () => import('../pages/secure/listacostos/listacostos.module').then(m => m.ListacostosPageModule)
+      },
+      {
         path: 'payments',
         loadChildren: () => import('../pages/secure/payments/payments.module').then(m => m.PaymentsPageModule)
       },

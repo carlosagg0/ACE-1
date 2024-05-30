@@ -25,6 +25,8 @@ export class ChartsPage implements OnInit {
   pvp: number | null = null;
   txt_producto: string = '';
 
+
+
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   public barChartOptions: ChartConfiguration['options'] = {
@@ -234,6 +236,7 @@ export class ChartsPage implements OnInit {
     this.authService.postData(datos).subscribe((res: any) => {
       if (res.estado == true) {
         this.mostrarMensajeRegistroExitoso();
+        this.router.navigate(['/listacostos']); // Redirecciona al inicio de sesión
       } else {
         this.authService.showToast(res.mensaje);
       }
