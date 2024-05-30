@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper/helper.service';
+import { HttpClient } from '@angular/common/http'; // Asegúrate de importar HttpClient
+import { AlertController } from '@ionic/angular';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-charts',
@@ -119,7 +124,18 @@ export class ChartsPage implements OnInit {
 
   content_loaded: boolean = false;
 
-  constructor(private helperService: HelperService) { }
+  constructor(
+  private helperService: HelperService, 
+  private http: HttpClient,
+  private alertController: AlertController,
+  private authService: AuthService,
+  private toastService: ToastService,
+  private router: Router,
+  
+  ) {
+    this.authService.getSession('persona').then((res: any) => {
+    });
+  }
 
   ngOnInit() {
     this.createBarChart();
@@ -199,5 +215,57 @@ export class ChartsPage implements OnInit {
         pointStyle: 'circle',
       }
     ];
+  }
+
+  async guardarDatos() {
+    let datos = {
+      accion: "guardar_costos_produccion",
+      nombre: this.txt_producto,
+      margenBeneficio: this.margenBeneficio,
+      impuestos: this.impuestos,
+      costoProduccion: this.costoProduccion,
+      costoFabrica: this.costoFabrica,
+      costoDistribucion: this.costoDistribucion,
+      pvp: this.pvp,
+      materiasPrimas: this.materiasPrimas,
+      otrosGastos: this.otrosGastos
+    };
+
+    this.authService.postData(datos).subscribe((res: any) => {
+      if (res.estado == true) {
+        this.mostrarMensajeRegistroExitoso();
+      } else {
+        this.authService.showToast(res.mensaje);
+      }
+      
+    });
+    /*
+    this.http.post('http://localhost:3000/api/productos', producto)
+      .subscribe(
+        async (response) => {
+          const alert = await this.alertController.create({
+            header: 'Éxito',
+            message: 'Datos guardados correctamente.',
+            buttons: ['OK']
+          });
+          await alert.present();
+          console.log('Datos guardados', response);
+        },
+        async (error) => {
+          const alert = await this.alertController.create({
+            header: 'Error',
+            message: 'Error al guardar datos.',
+            buttons: ['OK']
+          });
+          await alert.present();
+          console.error('Error al guardar datos', error);
+        }
+      );
+
+      */
+  }
+
+  async mostrarMensajeRegistroExitoso() {
+    const toast = await this.toastService.presentToast('Éxito', '¡Datos registrados correctamente!', 'top', 'success', 3000);
   }
 }
