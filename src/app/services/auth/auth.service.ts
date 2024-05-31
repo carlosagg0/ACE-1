@@ -9,7 +9,7 @@ import { Storage } from '@capacitor/storage';
   providedIn: 'root'
 })
 export class AuthService {
-  server: string = "http://localhost/WsMunicipioIonic/ws_gad.php";
+  server: string = "http://localhost/ACE/WsMunicipioIonic/ws_gad.php";
   private toastQueue: Array<{ message: string, duration: number, position: 'top' | 'bottom', color: string }> = [];
   private isToastActive: boolean = false;
 

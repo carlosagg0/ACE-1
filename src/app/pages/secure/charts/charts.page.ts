@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./charts.page.scss'],
 })
 export class ChartsPage implements OnInit {
-
+  codigo: string="";
   materiasPrimas: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
   manoDeObraList: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
   costosIndirectosList: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
@@ -134,8 +134,10 @@ export class ChartsPage implements OnInit {
     private toastService: ToastService,
     private router: Router,
   ) {
-    this.authService.getSession('persona').then((res: any) => {
-    });
+    this.authService.getSession('codigo').then((res:any)=>{
+      this.codigo=res;
+      
+      });
   }
 
   ngOnInit() {
@@ -239,6 +241,7 @@ export class ChartsPage implements OnInit {
 
   let datos = {
     accion: "guardar_costos_produccion",
+    codigo: this.codigo,
     nombre: this.txt_producto,
     margenBeneficio: this.margenBeneficio,
     impuestos: this.impuestos,
@@ -256,7 +259,16 @@ export class ChartsPage implements OnInit {
     const res: any = await this.authService.postData(datos).toPromise();
     if (res.estado) {
       this.mostrarMensajeRegistroExitoso();
-      this.router.navigate(['/listacostos']);
+      // Utiliza uno de los dos métodos para actualizar la página
+
+      // Método 1: Navegar a la misma página (actualiza el componente)
+      this.router.navigate(['/listacostos']).then(() => {
+        window.location.reload(); // Refresca completamente la página
+      });
+
+      // Método 2: Recargar la página completamente
+      // window.location.reload();
+
     } else {
       this.authService.showToast(res.mensaje);
     }

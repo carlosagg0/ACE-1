@@ -1,23 +1,22 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title color="light">Costos de Producción</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button color="light" routerLink="/listacostos">
-        <ion-icon name="arrow-back-outline"></ion-icon> Volver
-      </ion-button>
+    <ion-buttons slot="end">
       <ion-button color="light" routerLink="/ajustes">
         <ion-icon slot="icon-only" name="cog"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light" style="text-align: center; flex: 1;">Costos de Producción</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="light" routerLink="/listacostos">
+        <ion-icon name="arrow-back-outline"></ion-icon> 
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
-  <ion-header>
-    <ion-toolbar color="medium" class="toolbar-search">
-      <ion-searchbar showCancelButton="focus" placeholder="Buscar ..."></ion-searchbar>
-    </ion-toolbar>
-  </ion-header>
+  
 
   <div class="ion-padding">
     <ion-card color="medium">
@@ -82,7 +81,7 @@
         <!-- Otros Costos -->
         <div *ngFor="let otroCosto of otrosCostosList; let i = index">
           <ion-item>
-            <ion-label position="floating">Nombre de Otros Costos</ion-label>
+            <ion-label position="floating">Nombre de Costos Generales</ion-label>
             <ion-input [(ngModel)]="otrosCostosList[i].nombre" (ionChange)="calcular()"></ion-input>
           </ion-item>
           <ion-item>
@@ -90,7 +89,7 @@
             <ion-input [(ngModel)]="otrosCostosList[i].costo" type="number" (ionChange)="calcular()"></ion-input>
           </ion-item>
         </div>
-        <ion-button color="tertiary" expand="full" (click)="agregarOtrosCostos()">Agregar Otros Costos</ion-button>
+        <ion-button color="tertiary" expand="full" (click)="agregarOtrosCostos()">Agregar Otro Costo</ion-button>
 
         <!-- Márgenes y impuestos -->
         <ion-item>
@@ -105,24 +104,28 @@
         <!-- Resultados -->
         <ion-item color="medium" *ngIf="costoProduccion !== null">
           <ion-label>Costo de Producción</ion-label>
-          <ion-badge slot="end">{{ costoProduccion | currency }}</ion-badge>
+          <ion-badge style="color: white;" slot="end">{{ costoProduccion | currency }}</ion-badge>
         </ion-item>
         <ion-item color="medium" *ngIf="costoFabrica !== null">
           <ion-label>Costo de Fábrica</ion-label>
-          <ion-badge slot="end">{{ costoFabrica | currency }}</ion-badge>
+          <ion-badge style="color: white;" slot="end">{{ costoFabrica | currency }}</ion-badge>
         </ion-item>
         <ion-item color="medium" *ngIf="costoDistribucion !== null">
           <ion-label>Costo de Distribución</ion-label>
-          <ion-badge slot="end">{{ costoDistribucion | currency }}</ion-badge>
+          <ion-badge style="color: white;" slot="end">{{ costoDistribucion | currency }}</ion-badge>
         </ion-item>
         <ion-item color="medium" *ngIf="pvp !== null">
           <ion-label>PVP</ion-label>
           <ion-badge color="success" slot="end">{{ pvp | currency }}</ion-badge>
         </ion-item>
-
-        <!-- Botón de Guardar -->
-        <ion-button color="primary" expand="full" (click)="guardarDatos()">Guardar</ion-button>
+        
       </ion-card-content>
+      
+        <ion-button class="button-container" color="danger" expand="small" (click)="guardarDatos()">Guardar</ion-button>
     </ion-card>
+    
   </div>
+   <!-- Botón de Guardar -->
+   
+   
 </ion-content>

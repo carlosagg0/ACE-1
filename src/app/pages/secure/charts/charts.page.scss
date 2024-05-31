@@ -23,4 +23,10 @@
   // ion-item {
   //   background-color: var(--ion-color-primary);
   // }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7vh; /* Esto es opcional, dependiendo de si quieres centrarlo verticalmente también */
+  }
 }

@@ -1,0 +1,39 @@
+.transparent-grid {
+  background-color: rgba(255, 255, 255, 0.75); // 75% de transparencia
+  border-radius: 10px; // Esquinas redondeadas
+  padding: 10px; // Espacio interno
+}
+
+.custom-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.header-row {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid #ccc;
+}
+
+.data-row {
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header, .data {
+  padding: 10px 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.actions ion-button {
+  margin: 0 5px;
+}
+
+ion-row:nth-child(even) {
+  background-color: rgba(240, 240, 240, 0.5); // Fondo alternado para filas pares
+}
