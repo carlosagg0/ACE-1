@@ -16,7 +16,9 @@ import { Router } from '@angular/router';
 export class ChartsPage implements OnInit {
 
   materiasPrimas: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
-  otrosGastos: { nombre: string, gasto: number }[] = [{ nombre: '', gasto: 0 }];
+  manoDeObraList: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
+  costosIndirectosList: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
+  otrosCostosList: { nombre: string, costo: number }[] = [{ nombre: '', costo: 0 }];
   margenBeneficio: number = 0;
   impuestos: number = 0;
   costoProduccion: number | null = null;
@@ -24,8 +26,6 @@ export class ChartsPage implements OnInit {
   costoDistribucion: number | null = null;
   pvp: number | null = null;
   txt_producto: string = '';
-
-
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -127,13 +127,12 @@ export class ChartsPage implements OnInit {
   content_loaded: boolean = false;
 
   constructor(
-  private helperService: HelperService, 
-  private http: HttpClient,
-  private alertController: AlertController,
-  private authService: AuthService,
-  private toastService: ToastService,
-  private router: Router,
-  
+    private helperService: HelperService, 
+    private http: HttpClient,
+    private alertController: AlertController,
+    private authService: AuthService,
+    private toastService: ToastService,
+    private router: Router,
   ) {
     this.authService.getSession('persona').then((res: any) => {
     });
@@ -153,28 +152,38 @@ export class ChartsPage implements OnInit {
     this.materiasPrimas.push({ nombre: '', costo: 0 });
   }
 
-  agregarOtrosGastos() {
-    this.otrosGastos.push({ nombre: '', gasto: 0 });
+  agregarManoDeObra() {
+    this.manoDeObraList.push({ nombre: '', costo: 0 });
   }
 
-  ngDoCheck() {
-    this.calcular();
+  agregarCostosIndirectos() {
+    this.costosIndirectosList.push({ nombre: '', costo: 0 });
+  }
+
+  agregarOtrosCostos() {
+    this.otrosCostosList.push({ nombre: '', costo: 0 });
   }
 
   calcular() {
     const costoMateriasPrimas = this.materiasPrimas.reduce((total, materia) => total + (materia.costo || 0), 0);
-    const totalOtrosGastos = this.otrosGastos.reduce((total, gasto) => total + (gasto.gasto || 0), 0);
+    const totalManoDeObra = this.manoDeObraList.reduce((total, mano) => total + (mano.costo || 0), 0);
+    const totalCostosIndirectos = this.costosIndirectosList.reduce((total, costo) => total + (costo.costo || 0), 0);
+    const totalOtrosCostos = this.otrosCostosList.reduce((total, costo) => total + (costo.costo || 0), 0);
+    const totalOtrosGastos = totalManoDeObra + totalCostosIndirectos + totalOtrosCostos;
+
     this.costoProduccion = costoMateriasPrimas + totalOtrosGastos;
 
     console.log('Costo de materias primas:', costoMateriasPrimas);
-    console.log('Total de otros gastos:', totalOtrosGastos);
+    console.log('Total de mano de obra:', totalManoDeObra);
+    console.log('Total de costos indirectos:', totalCostosIndirectos);
+    console.log('Total de otros costos:', totalOtrosCostos);
     console.log('Costo de producción:', this.costoProduccion);
 
     const beneficio = this.costoProduccion * (this.margenBeneficio / 100);
     const impuestosCalculados = this.costoProduccion * (this.impuestos / 100);
 
-    this.costoFabrica = this.costoProduccion * (this.margenBeneficio / 100 + 1); // Suponiendo que el costo de fábrica es un porcentaje del margen de beneficio
-    this.costoDistribucion = this.costoFabrica * (this.impuestos / 100 + 1); // Suponiendo que el costo de distribución es un porcentaje del impuesto
+    this.costoFabrica = this.costoProduccion * (this.margenBeneficio / 100 + 1);
+    this.costoDistribucion = this.costoFabrica * (this.margenBeneficio / 100 + 1)* (this.impuestos / 100 + 1);
 
     console.log('Costo de fábrica:', this.costoFabrica);
     console.log('Costo de distribución:', this.costoDistribucion);
@@ -188,7 +197,7 @@ export class ChartsPage implements OnInit {
     const pvpImpuestos = (costoTotal + pvpBeneficio) * (this.impuestos / 100);
     console.log('Impuestos calculados:', pvpImpuestos);
 
-    this.pvp = this.costoDistribucion * (this.impuestos / 100 + 1);
+    this.pvp = this.costoDistribucion * (this.margenBeneficio / 100 + 1) * (this.impuestos / 100 + 1);
     console.log('PVP:', this.pvp);
   }
 
@@ -220,55 +229,44 @@ export class ChartsPage implements OnInit {
   }
 
   async guardarDatos() {
-    let datos = {
-      accion: "guardar_costos_produccion",
-      nombre: this.txt_producto,
-      margenBeneficio: this.margenBeneficio,
-      impuestos: this.impuestos,
-      costoProduccion: this.costoProduccion,
-      costoFabrica: this.costoFabrica,
-      costoDistribucion: this.costoDistribucion,
-      pvp: this.pvp,
-      materiasPrimas: this.materiasPrimas,
-      otrosGastos: this.otrosGastos
-    };
-
-    this.authService.postData(datos).subscribe((res: any) => {
-      if (res.estado == true) {
-        this.mostrarMensajeRegistroExitoso();
-        this.router.navigate(['/listacostos']); // Redirecciona al inicio de sesión
-      } else {
-        this.authService.showToast(res.mensaje);
-      }
-      
-    });
-    /*
-    this.http.post('http://localhost:3000/api/productos', producto)
-      .subscribe(
-        async (response) => {
-          const alert = await this.alertController.create({
-            header: 'Éxito',
-            message: 'Datos guardados correctamente.',
-            buttons: ['OK']
-          });
-          await alert.present();
-          console.log('Datos guardados', response);
-        },
-        async (error) => {
-          const alert = await this.alertController.create({
-            header: 'Error',
-            message: 'Error al guardar datos.',
-            buttons: ['OK']
-          });
-          await alert.present();
-          console.error('Error al guardar datos', error);
-        }
-      );
-
-      */
+  // Validar datos antes de enviarlos
+  if (!this.txt_producto || !this.margenBeneficio || !this.impuestos || !this.costoProduccion || 
+      !this.costoFabrica || !this.costoDistribucion || !this.pvp || !this.materiasPrimas.length || 
+      !this.manoDeObraList.length || !this.costosIndirectosList.length || !this.otrosCostosList.length) {
+    this.authService.showToast('Por favor, completa todos los campos antes de guardar.');
+    return;
   }
 
-  async mostrarMensajeRegistroExitoso() {
-    const toast = await this.toastService.presentToast('Éxito', '¡Datos registrados correctamente!', 'top', 'success', 3000);
+  let datos = {
+    accion: "guardar_costos_produccion",
+    nombre: this.txt_producto,
+    margenBeneficio: this.margenBeneficio,
+    impuestos: this.impuestos,
+    costoProduccion: this.costoProduccion,
+    costoFabrica: this.costoFabrica,
+    costoDistribucion: this.costoDistribucion,
+    pvp: this.pvp,
+    materiasPrimas: this.materiasPrimas,
+    manoDeObraList: this.manoDeObraList,
+    costosIndirectosList: this.costosIndirectosList,
+    otrosCostosList: this.otrosCostosList
+  };
+
+  try {
+    const res: any = await this.authService.postData(datos).toPromise();
+    if (res.estado) {
+      this.mostrarMensajeRegistroExitoso();
+      this.router.navigate(['/listacostos']);
+    } else {
+      this.authService.showToast(res.mensaje);
+    }
+  } catch (error) {
+    this.authService.showToast('Error al guardar los datos. Por favor, intenta de nuevo.');
   }
+}
+
+async mostrarMensajeRegistroExitoso() {
+  const toast = await this.toastService.presentToast('Éxito', '¡Datos registrados correctamente!', 'top', 'success', 3000);
+}
+
 }
