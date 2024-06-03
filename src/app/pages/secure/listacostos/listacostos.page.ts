@@ -89,7 +89,7 @@ async eliminarProducto(productoId: string) {
           try {
             const res: any = await this.authService.postData(datos).toPromise();
             if (res.estado) {
-            //  this.toastService.showToast("Producto eliminado con éxito");
+              this.authService.showToast2("Producto eliminado con éxito");
               this.lproductos(this.codigo); // Actualiza la lista de productos
             } else {
               this.authService.showToast(res.mensaje);

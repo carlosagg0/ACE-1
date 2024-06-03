@@ -1,3 +1,4 @@
+<!-- Archivo: src/app/costos-lista/costos-lista.page.html -->
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar color="dark">
     <ion-title color="light">Lista Costos</ion-title>
@@ -20,21 +21,22 @@
       <ion-col class="header">N°</ion-col>
       <ion-col class="header">Nombre</ion-col>
       <ion-col class="header">PVP</ion-col>
-      <ion-col class="header">Acciones</ion-col> <!-- Nueva columna para acciones -->
+      <ion-col class="header">Acciones</ion-col>
     </ion-row>
 
     <ion-row *ngFor="let producto of productos; let i = index" class="data-row">
       <ion-col class="data">{{ i + 1 }}</ion-col>
-      <!--<ion-col class="data">{{ producto.id }}</ion-col> -->
       <ion-col class="data">{{ producto.nombre }}</ion-col>
       <ion-col class="data">{{ producto.pvp }}</ion-col>
       <ion-col class="data actions">
-        <ion-button size="small" fill="clear" color="tertiary" (click)="editarProducto(producto)">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-button>
-        <ion-button size="small" fill="clear" color="danger" (click)="eliminarProducto(producto.id)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
+        <div class="action-buttons">
+          <ion-button size="small" fill="clear" color="tertiary" (click)="editarProducto(producto)">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button size="small" fill="clear" color="danger" (click)="eliminarProducto(producto.id)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

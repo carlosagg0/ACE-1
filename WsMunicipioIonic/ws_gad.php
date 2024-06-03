@@ -261,4 +261,41 @@ if ($post['accion'] == 'guardar_costos_produccion') {
 }
 
 
+if ($post['accion'] == 'eliminarProducto') {
+    $producto_id = (int)$post['productoId'];
+    $codigo_persona = (int)$post['cod_persona'];
+
+    // Inicia una transacción
+    mysqli_begin_transaction($mysqli);
+
+    // Consulta para eliminar de la tabla productos
+    $query_producto = "DELETE FROM productos WHERE id = $producto_id AND id_persona = $codigo_persona";
+
+    // Función para ejecutar las eliminaciones
+    function delete_data($mysqli, $producto_id, $table) {
+        $query = "DELETE FROM $table WHERE producto_id = $producto_id";
+        return mysqli_query($mysqli, $query);
+    }
+
+    $error_occurred = false;
+
+    // Elimina de las tablas relacionadas
+    if (!delete_data($mysqli, $producto_id, 'materias_primas')) $error_occurred = true;
+    if (!$error_occurred && !delete_data($mysqli, $producto_id, 'mano_de_obra')) $error_occurred = true;
+    if (!$error_occurred && !delete_data($mysqli, $producto_id, 'costos_indirectos')) $error_occurred = true;
+    if (!$error_occurred && !delete_data($mysqli, $producto_id, 'otros_gastos')) $error_occurred = true;
+    if (!$error_occurred && !mysqli_query($mysqli, $query_producto)) $error_occurred = true;
+
+    if ($error_occurred) {
+        mysqli_rollback($mysqli);
+        $respuesta = json_encode(array('estado' => false, 'mensaje' => 'Error al eliminar el producto.'));
+    } else {
+        mysqli_commit($mysqli);
+        $respuesta = json_encode(array('estado' => true, 'mensaje' => 'Producto eliminado correctamente.'));
+    }
+
+    // Envía la respuesta
+    echo $respuesta;
+}
+
 ?>

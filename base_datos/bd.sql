@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2024 a las 15:26:38
+-- Tiempo de generación: 03-06-2024 a las 15:55:55
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -308,6 +308,75 @@ INSERT INTO `ciudades` (`cod_ciudad`, `nombre_ciudad`, `cod_ciudad_provincia`) V
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `costos_indirectos`
+--
+
+CREATE TABLE `costos_indirectos` (
+  `id` int(11) NOT NULL,
+  `producto_id` int(11) DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `costo` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `costos_indirectos`
+--
+
+INSERT INTO `costos_indirectos` (`id`, `producto_id`, `nombre`, `costo`) VALUES
+(15, 15, 'vbnbv', '3.00'),
+(16, 16, 'XVBCV', '1.00'),
+(18, 18, 'raspadora', '0.09'),
+(26, 26, 'wdwef', '0.90');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mano_de_obra`
+--
+
+CREATE TABLE `mano_de_obra` (
+  `id` int(11) NOT NULL,
+  `producto_id` int(11) DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `costo` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mano_de_obra`
+--
+
+INSERT INTO `mano_de_obra` (`id`, `producto_id`, `nombre`, `costo`) VALUES
+(18, 18, 'mezclar', '0.25'),
+(19, 18, '', '0.00'),
+(27, 26, 'wqdw', '0.10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materias_primas`
+--
+
+CREATE TABLE `materias_primas` (
+  `id` int(11) NOT NULL,
+  `producto_id` int(11) DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `costo` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `materias_primas`
+--
+
+INSERT INTO `materias_primas` (`id`, `producto_id`, `nombre`, `costo`) VALUES
+(15, 15, 'xbcvv', '1.00'),
+(16, 16, 'DGDFH', '1.00'),
+(18, 18, 'Agua', '0.10'),
+(19, 18, 'clorantes', '0.01'),
+(27, 26, 'sfsd', '0.10');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `nacionalidades`
 --
 
@@ -512,6 +581,29 @@ INSERT INTO `nacionalidades` (`cod_nacionalidad`, `nombre_nacionalidad`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `otros_gastos`
+--
+
+CREATE TABLE `otros_gastos` (
+  `id` int(11) NOT NULL,
+  `producto_id` int(11) DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `costo` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `otros_gastos`
+--
+
+INSERT INTO `otros_gastos` (`id`, `producto_id`, `nombre`, `costo`) VALUES
+(2, 15, 'vnvbn', '4.00'),
+(3, 16, 'CBCVB', '1.00'),
+(5, 18, '', '0.06'),
+(13, 26, 'wqdwe', '0.09');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `persona`
 --
 
@@ -526,9 +618,9 @@ CREATE TABLE `persona` (
   `ecivil_persona` varchar(30) NOT NULL,
   `etnia_persona` varchar(30) NOT NULL,
   `dis_persona` varchar(10) NOT NULL,
-  `tipo_dis_persona` varchar(50) NOT NULL,
+  `tipo_dis_persona` varchar(50) DEFAULT NULL,
   `porcentaje_dis_persona` varchar(20) DEFAULT NULL,
-  `ncarnet_dis_persona` varchar(15) NOT NULL,
+  `ncarnet_dis_persona` varchar(15) DEFAULT NULL,
   `ocupacion_persona` varchar(60) NOT NULL,
   `cod_nacionalidad_persona` int(11) NOT NULL,
   `cod_ciudad_persona` int(11) NOT NULL,
@@ -553,7 +645,35 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`cod_persona`, `ci_persona`, `cod_tipoced_persona`, `nom_persona`, `ape_persona`, `fecha_nacimiento`, `edad_persona`, `ecivil_persona`, `etnia_persona`, `dis_persona`, `tipo_dis_persona`, `porcentaje_dis_persona`, `ncarnet_dis_persona`, `ocupacion_persona`, `cod_nacionalidad_persona`, `cod_ciudad_persona`, `cod_provincia_persona`, `parroquia_persona`, `barrio_persona`, `calle1_persona`, `calle2_persona`, `neducacion_persona`, `genero_persona`, `clave_persona`, `correo_persona`, `telefono_persona`, `cod_rol_persona`, `img_perfil`) VALUES
 (105, '1005037492', 1, 'Dereck', 'Jaramillo', '2024-05-12', 21, 'soltero', 'Afro Ecuatoriana', '', '', '', '', 'Estudiante', 51, 15, 11, 'El sagrario', 'bariio 10 de agosto', 'esfdv', 'sdfsd', 'dsfdgvdx', 'masculino', 'e10adc3949ba59abbe56e057f20f883e', 'jaramilloderek13@gmail.com', '0983288443', 1, ''),
 (106, '1050243920', 1, 'Carlos', 'Guevara', '2024-05-15', 21, 'divorciado', 'Mestiza', '', '', '', '', 'Jubilado', 51, 15, 11, 'El sagrario', 'El Vergel', 'Padre Raimundo de Santacruz 3-30', 'Cristóbal Colón', 'Secundaria', 'masculino', 'e10adc3949ba59abbe56e057f20f883e', 'andrescarlos988@gmail.com', '0968569654', 2, ''),
-(110, '1005037494 	', 1, 'Widinson', 'Pabon', '2024-05-15', 22, 'soltero', 'Afro Ecuatoriana', 'No', '', '', '', 'Estudiante', 4, 2, 4, 'asfsdg', 'dsfsdf', 'dsfsd', 'sdfsd', 'secundaria', 'masculino', 'e10adc3949ba59abbe56e057f20f883e', 'swdasfsd@mail.com', '0983288445', 2, '');
+(208, '1002219895', 1, 'Silvana', 'Linto', '1979-06-08', 44, 'soltero', 'Mestiza', 'Si', 'Visual', '70%', '235764352', 'Servidor Público', 51, 15, 11, 'zxvxc', 'vcvb', 'cvbcvb', 'xcvcb', 'Cuarto Nivel', 'femenino', '25d55ad283aa400af464c76d713c07ad', 'john.doe23@mail.com', '0997179693', 2, ''),
+(209, '1050225018', 2, 'wqarsef', 'sdfdsg', '2024-05-06', 0, 'casado', 'cv nfnvbnvbn', 'Si', 'nvbnvbnv', 'vbnvbnvb', 'vbnvbnvbn', 'vbnvbnvbnvbn', 51, 15, 11, 'vbnvbn', 'nvbnvbnvbn', 'vbnvbnvb', 'vbnvbnvbn', 'Ninguno', 'vbnvbnvbn', '25d55ad283aa400af464c76d713c07ad', 'swdasfsd2@mail.com', '0987654321', 2, ''),
+(210, '0401404512', 1, 'Widinson', 'Pabon', '2004-04-24', 20, 'casado', 'Afro Ecuatoriana', 'No', '', '', '', 'asfsd', 51, 15, 11, 'sdfsdf', 'sdfsd', 'sdfsd', 'sdfs', 'Bachillerato', 'masculino', '25d55ad283aa400af464c76d713c07ad', 'john.doe23@mail.com', '0987654321', 2, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id` int(11) NOT NULL,
+  `id_persona` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `margen_beneficio` decimal(5,2) NOT NULL,
+  `impuestos` decimal(5,2) NOT NULL,
+  `costo_produccion` decimal(10,2) DEFAULT NULL,
+  `costo_fabrica` decimal(10,2) DEFAULT NULL,
+  `costo_distribucion` decimal(10,2) DEFAULT NULL,
+  `pvp` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `id_persona`, `nombre`, `margen_beneficio`, `impuestos`, `costo_produccion`, `costo_fabrica`, `costo_distribucion`, `pvp`) VALUES
+(18, 105, 'Raspado de Hielo', '35.00', '15.00', '0.51', '0.68', '1.06', '1.65'),
+(26, 210, 'Papas', '35.00', '15.00', '1.19', '1.61', '2.49', '3.87');
 
 -- --------------------------------------------------------
 
@@ -646,10 +766,38 @@ ALTER TABLE `ciudades`
   ADD KEY `cod_ciudad_provincia` (`cod_ciudad_provincia`);
 
 --
+-- Indices de la tabla `costos_indirectos`
+--
+ALTER TABLE `costos_indirectos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `producto_id` (`producto_id`);
+
+--
+-- Indices de la tabla `mano_de_obra`
+--
+ALTER TABLE `mano_de_obra`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `producto_id` (`producto_id`);
+
+--
+-- Indices de la tabla `materias_primas`
+--
+ALTER TABLE `materias_primas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `producto_id` (`producto_id`);
+
+--
 -- Indices de la tabla `nacionalidades`
 --
 ALTER TABLE `nacionalidades`
   ADD PRIMARY KEY (`cod_nacionalidad`);
+
+--
+-- Indices de la tabla `otros_gastos`
+--
+ALTER TABLE `otros_gastos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `producto_id` (`producto_id`);
 
 --
 -- Indices de la tabla `persona`
@@ -663,6 +811,13 @@ ALTER TABLE `persona`
   ADD KEY `cod_nacionalidad_persona` (`cod_nacionalidad_persona`),
   ADD KEY `cod_provincia_persona` (`cod_provincia_persona`),
   ADD KEY `cod_ciudad_persona` (`cod_ciudad_persona`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_persona` (`id_persona`);
 
 --
 -- Indices de la tabla `provincias`
@@ -693,16 +848,46 @@ ALTER TABLE `ciudades`
   MODIFY `cod_ciudad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=268;
 
 --
+-- AUTO_INCREMENT de la tabla `costos_indirectos`
+--
+ALTER TABLE `costos_indirectos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT de la tabla `mano_de_obra`
+--
+ALTER TABLE `mano_de_obra`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `materias_primas`
+--
+ALTER TABLE `materias_primas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
 -- AUTO_INCREMENT de la tabla `nacionalidades`
 --
 ALTER TABLE `nacionalidades`
   MODIFY `cod_nacionalidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
+-- AUTO_INCREMENT de la tabla `otros_gastos`
+--
+ALTER TABLE `otros_gastos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `cod_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `cod_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `provincias`
@@ -733,6 +918,30 @@ ALTER TABLE `ciudades`
   ADD CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`cod_ciudad_provincia`) REFERENCES `provincias` (`cod_provincia`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `costos_indirectos`
+--
+ALTER TABLE `costos_indirectos`
+  ADD CONSTRAINT `costos_indirectos_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `mano_de_obra`
+--
+ALTER TABLE `mano_de_obra`
+  ADD CONSTRAINT `mano_de_obra_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `materias_primas`
+--
+ALTER TABLE `materias_primas`
+  ADD CONSTRAINT `materias_primas_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `otros_gastos`
+--
+ALTER TABLE `otros_gastos`
+  ADD CONSTRAINT `otros_gastos_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `persona`
 --
 ALTER TABLE `persona`
@@ -741,6 +950,12 @@ ALTER TABLE `persona`
   ADD CONSTRAINT `persona_ibfk_3` FOREIGN KEY (`cod_nacionalidad_persona`) REFERENCES `nacionalidades` (`cod_nacionalidad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `persona_ibfk_5` FOREIGN KEY (`cod_provincia_persona`) REFERENCES `provincias` (`cod_provincia`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `persona_ibfk_6` FOREIGN KEY (`cod_ciudad_persona`) REFERENCES `ciudades` (`cod_ciudad`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`cod_persona`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

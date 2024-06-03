@@ -87,10 +87,10 @@ if(isset($post['accion'])) {
     echo $respuesta;
 }
 
-/*
-if($post['accion']=='lcontactos')
+
+if($post['accion']=='lproductos')
 {
-    $sentencia=sprintf("SELECT * from contacto where persona_cod_persona='%s'",$post['cod_persona']);
+    $sentencia=sprintf("SELECT id, nombre, pvp  from productos where id_persona='%s'",$post['cod_persona']);
     //echo $sentencia;
     $rs=mysqli_query($mysqli,$sentencia);
     if(mysqli_num_rows($rs)>0)
@@ -98,21 +98,20 @@ if($post['accion']=='lcontactos')
         while($row=mysqli_fetch_array($rs)) 
         {
             $datos[]=array(
-                'codigo'=>$row['cod_contacto'],
-                'nombre'=>$row['nom_contacto'],
-                'apellido'=>$row['ape_contacto'],
-                'telefono'=>$row['telefono_contacto']
+                'id'=>$row['id'],
+                'nombre'=>$row['nombre'],
+                'pvp'=>$row['pvp']
             );
         }
         $respuesta=json_encode(array('estado'=>true, 'datos'=>$datos));
     }
     else
     {
-        $respuesta=json_encode(array('estado'=>false,'mensaje'=>"No se encontraron registro de contactos para esta persona"));
+        $respuesta=json_encode(array('estado'=>false,'mensaje'=>"No se encontraron registro de productos para esta persona"));
     }
     echo $respuesta;
 }
-*/
+
 if ($post['accion']=='actnombre'){
     $sentencia=sprintf("UPDATE persona SET nom_persona = '%s', ape_persona = '%s'  WHERE ci_persona ='%s'",$post['nombre'],$post['apellido'],$post['cedula']);
     $rs=mysqli_query($mysqli,$sentencia);
@@ -196,6 +195,7 @@ if($post['accion']=='lprovincia')
 }
 
 if ($post['accion'] == 'guardar_costos_produccion') {
+    $codigo_persona = ($post['codigo']);
     $producto = mysqli_real_escape_string($mysqli, $post['nombre']);
     $materias_primas = $post['materiasPrimas'];
     $mano_de_obra = $post['manoDeObraList'];
@@ -212,8 +212,8 @@ if ($post['accion'] == 'guardar_costos_produccion') {
     mysqli_begin_transaction($mysqli);
 
     // Inserta el producto en la tabla productos
-    $query = "INSERT INTO productos (nombre, margen_beneficio, impuestos, costo_produccion, costo_fabrica, costo_distribucion, pvp)
-              VALUES ('$producto', $margen_beneficio, $impuestos, $costo_produccion, $costo_fabrica, $costo_distribucion, $pvp)";
+    $query = "INSERT INTO productos (id_persona,nombre, margen_beneficio, impuestos, costo_produccion, costo_fabrica, costo_distribucion, pvp)
+              VALUES ('$codigo_persona','$producto', $margen_beneficio, $impuestos, $costo_produccion, $costo_fabrica, $costo_distribucion, $pvp)";
 
     if (mysqli_query($mysqli, $query)) {
         $producto_id = mysqli_insert_id($mysqli);
@@ -249,7 +249,7 @@ if ($post['accion'] == 'guardar_costos_produccion') {
             $respuesta = json_encode(array('estado' => false, 'mensaje' => 'Error al guardar algunos de los datos.'));
         } else {
             mysqli_commit($mysqli);
-            $respuesta = json_encode(array('estado' => true, 'mensaje' => 'Datos guardados correctamente.'));
+            $respuesta = json_encode(array('estado' => true, 'mensaje' => 'Producto guardado correctamente.'));
         }
     } else {
         mysqli_rollback($mysqli);
