@@ -667,15 +667,6 @@ CREATE TABLE `productos` (
   `pvp` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `productos`
---
-
-INSERT INTO `productos` (`id`, `id_persona`, `nombre`, `margen_beneficio`, `impuestos`, `costo_produccion`, `costo_fabrica`, `costo_distribucion`, `pvp`) VALUES
-(18, 105, 'Raspado de Hielo', '35.00', '15.00', '0.51', '0.68', '1.06', '1.65'),
-(26, 210, 'Papas', '35.00', '15.00', '1.19', '1.61', '2.49', '3.87');
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `provincias`
